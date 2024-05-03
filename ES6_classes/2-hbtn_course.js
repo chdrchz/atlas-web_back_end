@@ -12,7 +12,7 @@ export default class HolbertonCourse {
     }
 
     // verify students
-    if (!Array.isArray(students) || students.some(student => typeof student !== 'string' || student.trim().length === 0)) {
+    if (!Array.isArray(students) || students.some((student) => typeof student !== 'string' || student.trim().length === 0)) {
       throw new Error('Students must be a non-empty array of strings');
     }
 
@@ -50,7 +50,7 @@ export default class HolbertonCourse {
   }
 
   set students(newStudents) {
-    if (!Array.isArray(newStudents) || newStudents.some(student => typeof student !== 'string' || student.trim().length === 0)) {
+    if (!Array.isArray(newStudents) || newStudents.some((student) => typeof student !== 'string' || student.trim().length === 0)) {
       throw new Error('Students must be an array with non empty strings');
     }
     this._students = newStudents;
