@@ -39,7 +39,7 @@ export default class Currency {
   }
 
   // displays formatted currency type ie: Dollars ($)
-  displayFullCurrency(_name, _code) {
+  displayFullCurrency() {
     return (`${this._name} (${this._code})`);
   }
 }
