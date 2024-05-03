@@ -1,8 +1,10 @@
+import ClassRoom from "./0-classroom";
+
  export function initializeRooms() {
-    const rooms = [
-        new ClassRoom(19),
-        new ClassRoom(20),
-        new ClassRoom(34),
-    ];
-    return rooms;
+    const sizes = [19, 20, 34];
+    const classSizes = [];
+    for (const size of sizes) {
+        classSizes.push(new ClassRoom.size);
+    }
+    return classSizes;
 }
