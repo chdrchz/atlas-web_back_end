@@ -36,14 +36,23 @@ export default class HolbertonCourse {
 
   // setters
   set name (newName) {
+    if (typeof newName !== 'string' || newName.trim().length === 0) {
+        throw new Error('Name must be a non-empty string');
+    }
     this._name = newName;
   }
 
   set length (newLength) {
+    if (typeof newLength !== 'number' || newLength <= 0) {
+        throw new Error('Length must be a positive number');
+    }
     this._length = newLength;
   }
 
   set students (newStudents) {
+    if (!Array.isArray(newStudents) || newStudents.some(student => typeof student !== 'string' || student.trim().length === 0)) {
+        throw new Error('Students must be an array with non empty strings');
+    }
     this._students = newStudents;
   }
 }
