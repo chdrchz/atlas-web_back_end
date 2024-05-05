@@ -1,5 +1,5 @@
 export default class Building {
-  constructor (sqft) {
+  constructor(sqft) {
     // any class extending Building must implement below method
     if (this.constructor !== Building && !this.evacuationWarningMessage) {
       throw Error('Class extending Building must override evacuationWarningMessage');
@@ -9,7 +9,7 @@ export default class Building {
   }
 
   // getters
-  get sqft () {
+  get sqft() {
     return this._sqft;
   }
 }
