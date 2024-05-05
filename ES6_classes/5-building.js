@@ -6,7 +6,7 @@ export default class Building {
     this._sqft = sqft;
   }
 
-  // Getters
+  // getters
   get sqft () {
     return this._sqft;
   }
