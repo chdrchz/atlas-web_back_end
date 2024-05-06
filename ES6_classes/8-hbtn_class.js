@@ -32,7 +32,7 @@ export default class HolbertonClass {
     this._size = newSize;
   }
 
-  set location (newLocation) {
+  set location(newLocation) {
     if (typeof newLocation !== 'string' || newLocation.length <= 0) {
       throw new Error('Location must be a non empty string');
     }
