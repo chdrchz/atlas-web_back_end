@@ -50,5 +50,6 @@ export default class HolbertonClass {
     if (type === 'undefined') {
       throw new Error('Type must be a valid number or string');
     }
+    return null;
   }
 }
