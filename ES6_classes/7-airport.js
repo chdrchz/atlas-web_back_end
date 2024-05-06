@@ -40,7 +40,7 @@ export default class Airport {
   }
 
   // string representation
-  printSymbol() {
+  get [Symbol.toStringTag]() {
     return `${this._code}`;
   }
 }
