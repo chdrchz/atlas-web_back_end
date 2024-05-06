@@ -57,6 +57,21 @@ export default class Car {
   }
 
   static cloneCar(brand, motor, color) {
+    // verify brand
+    if (typeof brand !== 'string' || brand.length <= 0) {
+      throw new Error('Brand must be a non empty string');
+    }
+
+    // verify motor
+    if (typeof motor !== 'string' || motor.length <= 0) {
+      throw new Error('Motor must be a non empty string');
+    }
+
+    // verify color
+    if (typeof color !== 'string' || color.length <= 0) {
+      throw new Error('Color must be a non empty string');
+    }
+
     return new Car(brand, motor, color);
   }
 }
