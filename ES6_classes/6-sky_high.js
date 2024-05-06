@@ -6,6 +6,7 @@ export default class SkyHighBuilding extends Building {
       throw new Error('Floors must be a positive, non-zero number');
     }
 
+    super(sqft);
     this._floors = floors;
   }
 
