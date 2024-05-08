@@ -1,4 +1,4 @@
-export default function updateUniqueItems (groceries) {
+export default function updateUniqueItems(groceries) {
   if (Object.getPrototypeOf(groceries) !== Map.prototype) throw TypeError('Cannot process');
 
   groceries.forEach((val, key) => {
