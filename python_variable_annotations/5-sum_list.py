@@ -1,16 +1,16 @@
 #!/usr/bin/env python3
 
 """
-Function that returns a float of the sum of input_lists
+Function that returns a float of the sum of input_list
 """
 
 
-def sum_list(input_lists: list[float]) -> float:
+def sum_list(input_list: list[float]) -> float:
     """
     Function that returns a float of the sum of input_lists
     """
-    
+
     sum = 0;
-    for num in input_lists: 
+    for num in input_list: 
         sum += num
     return sum
