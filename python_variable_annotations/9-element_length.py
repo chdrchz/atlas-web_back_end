@@ -2,10 +2,10 @@
 """
 Function that finds the length of every element in list
 """
-from typing import List, Tuple, Iterable, Any
+from typing import Iterable, Sequence, List, Tuple
 
 
-def element_length(lst: List[Iterable[Any]]) -> List[Tuple[Iterable[Any], int]]:
+def element_length(lst: Iterable[Sequence]) -> List[Tuple[Sequence, int]]:
     """
     Function that finds the length of every element in list
     """
