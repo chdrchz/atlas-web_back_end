@@ -4,7 +4,8 @@
 Coroutine that takes a max_delay as an argument, and randomly generates
  a number to wait to complete the asynchronous operation.
 """
-import asyncio, random
+import asyncio
+import random
 
 
 async def wait_random(max_delay: int = 10) -> float:
