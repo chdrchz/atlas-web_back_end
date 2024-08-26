@@ -11,7 +11,7 @@ def sum_list(input_list: List[float]) -> float:
     Function that returns a float of the sum of input_lists
     """
 
-    sum = 0;
-    for num in input_list: 
+    sum = 0
+    for num in input_list:
         sum += num
     return sum
