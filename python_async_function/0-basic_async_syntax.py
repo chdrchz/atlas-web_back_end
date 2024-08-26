@@ -6,6 +6,7 @@ Coroutine that takes a max_delay as an argument, and randomly generates
 """
 import asyncio, random
 
+
 async def wait_random(max_delay: int = 10) -> float:
     """
     Coroutine that takes a max_delay as an argument, and randomly generates
