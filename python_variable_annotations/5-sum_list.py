@@ -6,7 +6,7 @@ Function that returns a float of the sum of input_list
 from typing import List
 
 
-def sum_list(input_list: list[float]) -> float:
+def sum_list(input_list: List[float]) -> float:
     """
     Function that returns a float of the sum of input_lists
     """
