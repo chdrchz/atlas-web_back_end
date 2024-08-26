@@ -6,7 +6,7 @@ Function that returns a float of the sum of input_list
 from typing import List, Union
 
 
-def sum_mixed_list(mxd_list: List[Union[int | float]]) -> float:
+def sum_mixed_list(mxd_list: List[Union[int, float]]) -> float:
     """
     Function that returns a float of the sum of input_lists.
     The list will contain both ints and floats 
