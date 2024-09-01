@@ -3,7 +3,6 @@
 Module that contains a function to return a Task object
 """
 
-import time
 import asyncio
 
 wait_random = __import__('0-basic_async_syntax').wait_random
