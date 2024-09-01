@@ -14,7 +14,7 @@ async def async_generator():
     Args:
         none
 
-    Yield:
+    Return:
         random float
     """
     # Loop 10 times
