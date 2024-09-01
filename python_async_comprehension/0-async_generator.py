@@ -3,11 +3,12 @@
 Module that contains a coroutine that loops 10 times
 """
 
-from random import uniform
 import asyncio
+from random import uniform
+from typing import AsyncGenerator
 
 
-async def async_generator():
+async def async_generator() -> AsyncGenerator[float, None]:
     """
     Coroutine that loops ten times and yields a random number
 
