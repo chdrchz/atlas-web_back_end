@@ -1,11 +1,15 @@
 #!/usr/bin/env python3
-'''
-Test file for printing the correct output of the wait_n coroutine
-'''
+
 import asyncio
+measure_time = __import__('2-measure_runtime').measure_time
 
-wait_n = __import__('1-concurrent_coroutines').wait_n
+n = 5
+max_delay = 9
 
-print(asyncio.run(wait_n(5, 5)))
-print(asyncio.run(wait_n(10, 7)))
-print(asyncio.run(wait_n(10, 0)))
+# Run the measure_time coroutine and print its result
+async def main():
+    result = await measure_time(n, max_delay)
+    print(result)
+
+# Start the event loop
+asyncio.run(main())
