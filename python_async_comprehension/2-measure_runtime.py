@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """
 Module that contains a coroutine that calls a coroutine
-to loop 10 times and return 10 random numbers
+to call a coroutine in parallel 4 times and calculate
+the time it took
 """
 
 import time
@@ -11,10 +12,10 @@ from typing import List
 async_comprehension = __import__('1-async_comprehension').async_comprehension
 
 
-async def measure_runtime() -> List[float]:
+async def measure_runtime() -> float:
     """
-    Coroutine that calls a coroutine
-    to loop 10 times and return 10 random numbers
+    coroutine call a coroutine in parallel 4 times and calculate
+    the time it took
 
     Args:
         none
