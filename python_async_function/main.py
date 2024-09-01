@@ -1,15 +1,13 @@
 #!/usr/bin/env python3
 
 import asyncio
-measure_time = __import__('2-measure_runtime').measure_time
 
-n = 5
-max_delay = 9
+task_wait_random = __import__('3-tasks').task_wait_random
 
-# Run the measure_time coroutine and print its result
-async def main():
-    result = await measure_time(n, max_delay)
-    print(result)
 
-# Start the event loop
-asyncio.run(main())
+async def test(max_delay: int) -> float:
+    task = task_wait_random(max_delay)
+    await task
+    print(task.__class__)
+
+asyncio.run(test(5))
