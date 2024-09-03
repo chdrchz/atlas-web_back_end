@@ -22,9 +22,12 @@ class BasicCache(BaseCaching):
         """
 
         # Prevent empty values from being added to cache_data
-        if key or item is None:
+        if key is None:
             return
         
+        if item is None:
+            return
+
         # Add item to cache_data, based on its key
         self.cache_data[key] = item
 
