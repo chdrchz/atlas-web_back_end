@@ -42,7 +42,7 @@ class LRUCache(BaseCaching):
         self.cache_data.move_to_end(key)
         
         # Delete the first key (least recently used)
-        if len(self.cache_data) >= BaseCaching.MAX_ITEMS:
+        if len(self.cache_data) > BaseCaching.MAX_ITEMS:
             first_key = next(iter(self.cache_data))
             self.cache_data.pop(first_key)
             print(f'DISCARD: {first_key}')
