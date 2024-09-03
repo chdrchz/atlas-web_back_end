@@ -38,12 +38,10 @@ class LIFOCache(BaseCaching):
         # Add item to cache_data, based on its key
         self.cache_data[key] = item
 
-        # Remove the first item if the dictionary is greater than 4
+        # Remove the last item if the dictionary is greater than 4
         if len(self.cache_data) > BaseCaching.MAX_ITEMS:
-            # iter() is like a loop, creates an iterable object
-            first_key = next(iter(self.cache_data))
-            self.cache_data.pop(first_key)
-            print(f'DISCARD: {first_key}')
+            last_key = self.cache_data.pop()
+            print(f'DISCARD: {last_key}')
 
     def get(self, key):
         """ Gets an item from cache_data
