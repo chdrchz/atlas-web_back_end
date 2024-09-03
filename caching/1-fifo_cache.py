@@ -28,7 +28,10 @@ class FIFOCache(BaseCaching):
         """
         
         # Prevent empty values from being added to cache_data
-        if key == "":
+        if key is None:
+            return
+
+        if item is None:
             return
         
         # Add item to cache_data, based on its key
