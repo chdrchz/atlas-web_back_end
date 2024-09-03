@@ -1,11 +1,11 @@
 #!/usr/bin/python3
-""" LRUCache module
+""" MRUCache module
 """
 
 from base_caching import BaseCaching
 
 
-class LRUCache(BaseCaching):
+class MRUCache(BaseCaching):
     """ FIFOCaching defines:
         - adds an item to cache_data, utilizes FIFO
         - retrieves an item from cache_data
