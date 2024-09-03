@@ -58,7 +58,7 @@ class FIFOCache(BaseCaching):
         
         # If they key exists
         if self.cache_data[key]:
-            if key == None:
+            if key is None:
                 return None
             
             # Retrieve item in cache_data, based on its key
