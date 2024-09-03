@@ -40,9 +40,7 @@ class LIFOCache(BaseCaching):
 
         # Remove the first item if the dictionary is greater than 4
         if len(self.cache_data) > BaseCaching.MAX_ITEMS:
-            # Get the last key to be removed
-            last_key = next(reversed(self.cache_data))
-            self.cache_data.pop(last_key)
+            last_key = self.cache_data.popitem()
             print(f"DISCARD: {last_key}")
 
     def get(self, key):
