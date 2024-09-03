@@ -41,8 +41,8 @@ class FIFOCache(BaseCaching):
         if len(self.cache_data) > BaseCaching.MAX_ITEMS:
             # iter() is like a loop, creates an iterable object
             first_key = next(iter(self.cache_data))
-            first_item = self.cache_data.pop(first_key)
-            print(f'DISCARD: {first_item}')
+            self.cache_data.pop(first_key)
+            print(f'DISCARD: {first_key}')
 
     def get(self, key):
         """ Gets an item from cache_data
