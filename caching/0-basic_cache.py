@@ -45,7 +45,3 @@ class BasicCache(BaseCaching):
 
         # Retrieve item in cache_data, based on its key
         return self.cache_data.get(key)
-
-            
-            
-    
