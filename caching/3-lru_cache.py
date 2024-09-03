@@ -3,6 +3,7 @@
 """
 
 from base_caching import BaseCaching
+from collections import OrderedDict
 
 
 class LRUCache(BaseCaching):
@@ -15,6 +16,7 @@ class LRUCache(BaseCaching):
         """ Initialization from BaseCaching
         """
         super().__init__()
+        self.cache_data = OrderedDict()
 
     def put(self, key, item):
         """ Adds an item to cache_data
@@ -35,13 +37,19 @@ class LRUCache(BaseCaching):
         if item is None:
             return
 
-        # Remove the first item if the dictionary is greater than 4
-        if len(self.cache_data) >= BaseCaching.MAX_ITEMS:
-            last_key, _ = self.cache_data.popitem()
-            print(f"DISCARD: {last_key}")
+        # Moves the recently used item to the end of the dictionary
+        # We then pop the first key (least recently used)
+        
 
         # Add item to cache_data, based on its key
         self.cache_data[key] = item
+        self.cache_data.move_to_end(key)
+        
+        # Delete the first key (least recently used)
+        if self.cache_data >= BaseCaching.MAX_ITEMS:
+            first_key = next(iter(self.cache_data))
+            self.cache_data.pop(first_key)
+            print(f'DISCARD: {first_key}')
 
     def get(self, key):
         """ Gets an item from cache_data
