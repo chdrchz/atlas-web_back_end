@@ -40,7 +40,7 @@ class LRUCache(BaseCaching):
         # Add item to cache_data, based on its key
         self.cache_data[key] = item
         self.cache_data.move_to_end(key)
-        
+
         # Delete the first key (least recently used)
         if len(self.cache_data) > BaseCaching.MAX_ITEMS:
             first_key = next(iter(self.cache_data))
