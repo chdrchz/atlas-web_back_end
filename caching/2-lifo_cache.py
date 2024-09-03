@@ -35,13 +35,13 @@ class LIFOCache(BaseCaching):
         if item is None:
             return
 
-        # Add item to cache_data, based on its key
-        self.cache_data[key] = item
-
         # Remove the first item if the dictionary is greater than 4
         if len(self.cache_data) >= BaseCaching.MAX_ITEMS:
             last_key, _ = self.cache_data.popitem()
             print(f"DISCARD: {last_key}")
+        
+        # Add item to cache_data, based on its key
+        self.cache_data[key] = item
 
     def get(self, key):
         """ Gets an item from cache_data
