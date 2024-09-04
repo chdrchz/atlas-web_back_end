@@ -31,13 +31,13 @@ class Server:
 
     def get_page(self, page: int = 1, page_size: int = 10) -> List[List]:
         """ Finds the range of data to be displayed
-        
-            Args: 
+
+            Args:
                 - self
                 - page: current page
                 - page_size: data size
-            
-            Return: 
+
+            Return:
                 - List of lists
         """
         # Make sure that the args are ints > 0
