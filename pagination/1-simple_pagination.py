@@ -34,5 +34,13 @@ class Server:
         assert isinstance(page, int) and page > 0
         assert isinstance(page_size, int) and page_size > 0
 
-        # Find 
-        data = index_range(page, page_size)
+        # Grab that data and add it to the indexes
+        start_index, end_index = index_range(page, page_size)
+        
+        # Is the data within bounds? If yes, return an empty list
+        dataset = self.dataset
+        if start_index >= len(dataset):
+            return []
+
+        # Return the appropriate range
+        return dataset[start_index:end_index]
