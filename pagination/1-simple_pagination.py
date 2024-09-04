@@ -30,13 +30,23 @@ class Server:
         return self.__dataset
 
     def get_page(self, page: int = 1, page_size: int = 10) -> List[List]:
+        """ Finds the range of data to be displayed
+        
+            Args: 
+                - self
+                - page: current page
+                - page_size: data size
+            
+            Return: 
+                - List of lists
+        """
         # Make sure that the args are ints > 0
         assert isinstance(page, int) and page > 0
         assert isinstance(page_size, int) and page_size > 0
 
         # Grab that data and add it to the indexes
         start_index, end_index = index_range(page, page_size)
-        
+
         # Is the data within bounds? If yes, return an empty list
         data = self.dataset()
         if start_index >= len(data):
