@@ -38,9 +38,9 @@ class Server:
         start_index, end_index = index_range(page, page_size)
         
         # Is the data within bounds? If yes, return an empty list
-        dataset = self.dataset
-        if start_index >= len(dataset):
+        data = self.dataset()
+        if start_index >= len(data):
             return []
 
         # Return the appropriate range
-        return dataset[start_index:end_index]
+        return data[start_index:end_index]
