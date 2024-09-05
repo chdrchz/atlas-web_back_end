@@ -40,9 +40,6 @@ class Server:
             Return:
                 - List of lists
         """
-        # Make sure that the args are ints > 0
-        assert isinstance(page, int) and page > 0
-        assert isinstance(page_size, int) and page_size > 0
 
         # Grab that data and add it to the indexes
         start_index, end_index = index_range(page, page_size)
@@ -72,6 +69,7 @@ class Server:
                     - prev_page: the number of the previous page
                     - total_pages: the total number of pages
         """
+
         data_dict = {}
 
         # Grab that data
