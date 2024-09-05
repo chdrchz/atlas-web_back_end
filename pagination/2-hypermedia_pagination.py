@@ -64,7 +64,7 @@ class Server:
                 - page_size: data size
 
             Return:
-                - A Dict with: 
+                - A Dict with:
                     - page_size
                     - page
                     - data: data from get_page
@@ -86,7 +86,7 @@ class Server:
         data_dict["page"] = page
         data_dict["page_size"] = page_size
 
-         # Determine the previous page
+        # Determine the previous page
         data_dict["prev_page"] = page - 1 if page > 1 else None
 
         # Determine the next page
