@@ -98,4 +98,7 @@ class Server:
             next_page = page + 1
             data_dict["next_page"] = next_page
 
+        next_page = page + 1
+        data_dict["next_page"] = next_page
+
         return data_dict
