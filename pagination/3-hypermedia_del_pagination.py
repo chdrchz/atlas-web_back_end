@@ -70,16 +70,13 @@ class Server:
                 current_page.append(start_index)
             start_index += 1
 
-        # Note the last position of the page
-        next_index = start_index
-        
-        # Set next_index to the first position of the next page
-        next_index += 1
-
         # Set next_index to None if the length of dataset is reached
         # before current_page fills
+        # And set next_index to the end of the page
         if start_index >= len(self.dataset()):
-            next_index is None
+            next_index = None
+        else:
+            next_index = start_index
 
         data_dict = {
             "index": index, # page start index
