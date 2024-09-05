@@ -76,20 +76,24 @@ class Server:
         assert isinstance(page, int) and page > 0
         assert isinstance(page_size, int) and page_size > 0
 
+        data_dict = {}
+
         # Grab that data
         data = self.get_page(page, page_size)
+        data_dict['data'] = data
 
         # Total pages
         total_pages = math.ceil(len(self.dataset()) / page_size)
-        data[total_pages] = total_pages
 
-        data[page] = self.page
-        data[page_size] = self.page_size
+        data_dict[total_pages] = total_pages
+
+        data_dict[page] = page
+        data_dict[page_size] = page_size
 
         next_page = page + 1
-        next_page[data] = next_page
+        data_dict[next_page] = next_page
 
         prev_page = page - 1
-        prev_page[data] = prev_page
+        data_dict[prev_page] = prev_page
 
-        return data
+        return data_dict
