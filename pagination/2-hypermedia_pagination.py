@@ -86,19 +86,10 @@ class Server:
         data_dict["page"] = page
         data_dict["page_size"] = page_size
 
-        if page - 1 <= 0:
-            data_dict["prev_page"] = None
-        else:
-            prev_page = page - 1
-            data_dict["prev_page"] = prev_page
+         # Determine the previous page
+        data_dict["prev_page"] = page - 1 if page > 1 else None
 
-        if page + 1 >= 0:
-            data_dict["next_page"] = None
-        else:
-            next_page = page + 1
-            data_dict["next_page"] = next_page
-
-        next_page = page + 1
-        data_dict["next_page"] = next_page
+        # Determine the next page
+        data_dict["next_page"] = page + 1 if page < total_pages else None
 
         return data_dict
