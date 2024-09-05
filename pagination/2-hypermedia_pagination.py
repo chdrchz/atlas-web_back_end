@@ -6,7 +6,7 @@ start and end pagination indexes
 
 import csv
 import math
-from typing import List
+from typing import Any, List, Dict
 index_range = __import__('0-simple_helper_function').index_range
 
 
@@ -55,7 +55,7 @@ class Server:
         # Return the appropriate range
         return data[start_index:end_index]
 
-    def get_hyper(self, page: int = 1, page_size: int = 10) -> List[List]:
+    def get_hyper(self, page: int = 1, page_size: int = 10) -> Dict[Any, Any]:
         """ Finds the range of data to be displayed
 
             Args:
@@ -64,8 +64,32 @@ class Server:
                 - page_size: data size
 
             Return:
-                - List of lists
+                - A Dict with: 
+                    - page_size
+                    - page
+                    - data: data from get_page
+                    - next_page: the number of the next page
+                    - prev_page: the number of the previous page
+                    - total_pages: the total number of pages
         """
         # Make sure that the args are ints > 0
         assert isinstance(page, int) and page > 0
         assert isinstance(page_size, int) and page_size > 0
+
+        # Grab that data
+        data = self.get_page(page, page_size)
+
+        # Total pages
+        total_pages = math.ceil(len(self.dataset()) / page_size)
+        data[total_pages] = total_pages
+
+        data[page] = self.page
+        data[page_size] = self.page_size
+
+        next_page = page + 1
+        next_page[data] = next_page
+
+        prev_page = page - 1
+        prev_page[data] = prev_page
+
+        return data
