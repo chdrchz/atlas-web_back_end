@@ -41,6 +41,8 @@ class Server:
                 - List of lists
         """
         # Make sure that the args are ints > 0
+        assert isinstance(page, int) and page > 0
+        assert isinstance(page_size, int) and page_size > 0
 
         # Grab that data and add it to the indexes
         start_index, end_index = index_range(page, page_size)
@@ -79,16 +81,15 @@ class Server:
 
         # Total pages
         total_pages = math.ceil(len(self.dataset()) / page_size)
+        data_dict["total_pages"] = total_pages
 
-        data_dict[total_pages] = total_pages
-
-        data_dict[page] = page
-        data_dict[page_size] = page_size
+        data_dict["page"] = page
+        data_dict["page_size"] = page_size
 
         next_page = page + 1
-        data_dict[next_page] = next_page
+        data_dict["next_page"] = next_page
 
         prev_page = page - 1
-        data_dict[prev_page] = prev_page
+        data_dict["prev_page"] = prev_page
 
         return data_dict
