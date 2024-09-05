@@ -71,8 +71,10 @@ class Server:
             start_index += 1
 
         # Note the last position of the page
+        next_index = start_index
+        
         # Set next_index to the first position of the next page
-        next_index = start_index + 1
+        next_index += 1
 
         # Set next_index to None if the length of dataset is reached
         # before current_page fills
