@@ -44,8 +44,8 @@ class Server:
 
             Args:
                 - self
-                - index: 
-                - page_size: data size
+                - index: position
+                - page_size: rows per page
 
             Return:
                 - A Dict with:
@@ -64,7 +64,9 @@ class Server:
         # Current page data
         current_page = []
 
-        while len(current_page) < page_size and start_index < len(self.dataset()):
+        while len(current_page) < page_size and \
+            start_index < len(self.dataset()):
+
             if start_index is not None:
                 # Append rows to the current page
                 current_page.append(start_index)
@@ -79,7 +81,7 @@ class Server:
             next_index = start_index
 
         data_dict = {
-            "index": index, # page start index
+            "index": index,  # page start index
             "next_index": next_index,
             "page_size": len(current_page),
             "data": current_page
