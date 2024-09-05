@@ -88,14 +88,14 @@ class Server:
 
         if page - 1 <= 0:
             data_dict["prev_page"] = None
+        else:
+            prev_page = page - 1
+            data_dict["prev_page"] = prev_page
 
         if page + 1 >= 0:
             data_dict["next_page"] = None
-
-        next_page = page + 1
-        data_dict["next_page"] = next_page
-
-        prev_page = page - 1
-        data_dict["prev_page"] = prev_page
+        else:
+            next_page = page + 1
+            data_dict["next_page"] = next_page
 
         return data_dict
