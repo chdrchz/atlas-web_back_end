@@ -65,7 +65,7 @@ class Server:
         current_page = []
 
         while len(current_page) < page_size and \
-            start_index < len(self.dataset()):
+                start_index < len(self.dataset()):
 
             if start_index is not None:
                 # Append rows to the current page
