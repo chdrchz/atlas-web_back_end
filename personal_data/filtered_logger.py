@@ -7,7 +7,7 @@ import re
 from typing import List
 
 
-def filter_datum(fields: List[str], redaction: str, message: str, separator: str):
+def filter_datum(fields: List[str], redaction: str, message: str, separator: str) -> str:
     """ Function that obfuscates username and password fields.
     
         Args: 
