@@ -3,7 +3,7 @@
 
     Functions:
         - filter_datum: Obfuscates field data and
-        returns a string with redacted Personal Data
+            returns a string with redacted Personal Data
 
     Classes:
         - RedactingFormatter: Filters data
@@ -29,7 +29,7 @@ class RedactingFormatter(logging.Formatter):
         self.fields = fields
 
     def format(self, record: logging.LogRecord) -> str:
-        """ Format log message by redacting specific fields
+        """ Function that formats log message by redacting specific fields
         """
         # Super here to get the fields from the constructor method
         log_message = super().format(record)
@@ -55,3 +55,27 @@ def filter_datum(
     pattern = rf'({"|".join(fields)})=([^ {re.escape(separator)}]*)'
 
     return re.sub(pattern, lambda match: match.group(1)+'='+redaction, message)
+
+def get_logger() -> logging.Logger:
+    """ Function that returns a logging object
+    """
+    # create a new logger
+    logger = logging.getLogger("user_data")
+
+    # Set level of logger to INFO (20)
+    logger.setLevel(logging.INFO)
+
+    # Do not allow propogation to other loggers
+    logger.propagate = False
+
+    # Create a StreamHandler
+    handler = logging.StreamHandler()
+
+    # Create an instance of RedactingFormatter
+    formatter = RedactingFormatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    handler.setFormatter(formatter)
+
+    # Add the handler to the logger
+    logger.addHandler(handler)
+
+    return logger
