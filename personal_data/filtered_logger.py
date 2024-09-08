@@ -8,7 +8,7 @@ from typing import List
 
 
 def filter_datum(fields: List[str], redaction: str, message: str, separator: str) -> str:
-    """ Function that obfuscates username and password fields.
+    """ Function that obfuscates data fields.
     
         Args: 
             - fields: the value type of data to be osfucated
@@ -21,4 +21,4 @@ def filter_datum(fields: List[str], redaction: str, message: str, separator: str
     """
     pattern = r'(' + '|'.join(fields) + r')=([^' + re.escape(separator) + r']*)'
     
-    return re.sub(pattern, redaction, message)
+    return re.sub(pattern, lambda match: match.group(1) + '=' + redaction, message)
