@@ -4,8 +4,8 @@
     Functions:
         - filter_datum: Obfuscates field data and
         returns a string with redacted Personal Data
-    
-    Classes: 
+
+    Classes:
         - RedactingFormatter: Filters data
 """
 
@@ -31,8 +31,11 @@ class RedactingFormatter(logging.Formatter):
     def format(self, record: logging.LogRecord) -> str:
         """ Format log message by redacting specific fields
         """
+        # Super here to get the fields from the constructor method
         log_message = super().format(record)
-        return filter_datum(self.fields, self.REDACTION, log_message, self.SEPARATOR)
+
+        return filter_datum(
+                self.fields, self.REDACTION, log_message, self.SEPARATOR)
 
 
 def filter_datum(
