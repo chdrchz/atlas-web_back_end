@@ -21,6 +21,6 @@ def filter_datum(
         Return:
             - the message obfuscated
     """
-    pattern = r'(' + '|'.join(fields) + r')=([^' + re.escape(separator) + r']*)'
+    pattern = rf'({"|".join(fields)})=([^ {re.escape(separator)}]*)'
 
-    return re.sub(pattern, lambda match: match.group(1) + '=' + redaction, message)
+    return re.sub(pattern, lambda match: match.group(1)+'='+redaction, message)
