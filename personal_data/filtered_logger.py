@@ -2,17 +2,31 @@
 """ Module that obfuscates data
 
     Functions:
-        - filter_datum: Obfuscates field data and
+        - filter_datum: 
+            Obfuscates field data and
             returns a string with redacted Personal Data
+        - get_logger(): 
+            Creates a logger obj w/ all pertinent data
+            and returns a logging.Logger obj that
+            filter_datum will use
 
     Classes:
         - RedactingFormatter: Filters data
 """
 
+import os
 import re
 import logging
 from typing import List
+from mysql.connector import MySQLConnection, connect
 
+# Environment variables for database connection
+username = os.getenv('PERSONAL_DATA_DB_USERNAME', 'root')
+password = os.getenv('PERSONAL_DATA_DB_PASSWORD', '')
+host = os.getenv('PERSONAL_DATA_DB_HOST', 'localhost')
+database = os.getenv('PERSONAL_DATA_DB_NAME', 'my_db')
+
+# Data for formatting fields list
 PII_FIELDS = ("name", "email", "password", "phone", "ssn")
 
 
@@ -82,3 +96,17 @@ def get_logger() -> logging.Logger:
     logger.addHandler(handler)
 
     return logger
+
+def get_db() -> MySQLConnection:
+    """ Connects to a db using env variables
+
+        Return:
+            - MySQL connection
+    """
+    db = connect(
+        user=username,
+        password=password,
+        host=host,
+        database=database
+    )
+    return db
