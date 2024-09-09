@@ -58,6 +58,7 @@ def filter_datum(
 
     return re.sub(pattern, lambda match: match.group(1)+'='+redaction, message)
 
+
 def get_logger() -> logging.Logger:
     """ Function that returns a logging object
     """
@@ -70,10 +71,10 @@ def get_logger() -> logging.Logger:
     # Do not allow propogation to other loggers
     logger.propagate = False
 
-    # Create a StreamHandler
+    # Handle output to console
     handler = logging.StreamHandler()
 
-    # Create an instance of RedactingFormatter
+    # Get that data formatted + link the handler and data together
     formatter = RedactingFormatter(fields=PII_FIELDS)
     handler.setFormatter(formatter)
 
