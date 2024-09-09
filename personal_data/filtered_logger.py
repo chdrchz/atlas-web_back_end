@@ -2,10 +2,10 @@
 """ Module that obfuscates data
 
     Functions:
-        - filter_datum: 
+        - filter_datum:
             Obfuscates field data and
             returns a string with redacted Personal Data
-        - get_logger(): 
+        - get_logger():
             Creates a logger obj w/ all pertinent data
             and returns a logging.Logger obj that
             filter_datum will use
@@ -96,6 +96,7 @@ def get_logger() -> logging.Logger:
     logger.addHandler(handler)
 
     return logger
+
 
 def get_db() -> MySQLConnection:
     """ Connects to a db using env variables
