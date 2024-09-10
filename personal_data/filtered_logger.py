@@ -18,7 +18,7 @@ import os
 import re
 import logging
 from typing import List
-from mysql.connector import MySQLConnection, connect
+import mysql.connector
 
 # Environment variables for database connection
 username = os.getenv('PERSONAL_DATA_DB_USERNAME', 'root')
@@ -98,16 +98,52 @@ def get_logger() -> logging.Logger:
     return logger
 
 
-def get_db() -> MySQLConnection:
+def get_db() -> mysql.connector.connection.MySQLConnection:
     """ Connects to a db using env variables
 
         Return:
             - MySQL connection
     """
-    db = connect(
-        user=username,
-        password=password,
-        host=host,
-        database=database
+    db = mysql.connector.connect(
+        host=os.getenv("PERSONAL_DATA_DB_HOST"),
+        user=os.getenv("PERSONAL_DATA_DB_USERNAME"),
+        password=os.getenv("PERSONAL_DATA_DB_PASSWORD"),
+        database=os.getenv("PERSONAL_DATA_DB_NAME")
     )
     return db
+
+
+def main() -> None:
+    """ Main function
+    """
+    # Get database connection
+    db = get_db()
+    
+    # Create a cursor obj and add it to the db connection
+    with db.cursor() as cursor:
+
+        # Execute the SQL command
+        cursor.execute("SELECT * FROM users")
+
+        # Grab all the data
+        users = cursor.fetchall()
+    
+    # Fields to regex
+    sensitive_fields = [
+        "name",
+        "email",
+        "phone",
+        "ssn",
+        "password"
+    ]
+    
+    for user in users:
+        filtered_data = filter_datum(sensitive_fields, "***", user, ";")
+        
+        # Log that data
+        logger = get_logger() # Create a logger obj
+        logger.info(filtered_data)
+
+# Only main will run
+if __name__ == "__main__":
+    main()
