@@ -98,37 +98,26 @@ def get_logger() -> logging.Logger:
     return logger
 
 
-def get_db() -> mysql.connector.connection.MySQLConnection:
+def get_db() -> MySQLConnection:
     """ Connects to a db using env variables
 
         Return:
             - MySQL connection
     """
-    db = mysql.connector.connect(
-        host=os.getenv("PERSONAL_DATA_DB_HOST"),
-        user=os.getenv("PERSONAL_DATA_DB_USERNAME"),
-        password=os.getenv("PERSONAL_DATA_DB_PASSWORD"),
-        database=os.getenv("PERSONAL_DATA_DB_NAME")
+    db = connect(
+        user=username,
+        password=password,
+        host=host,
+        database=database
     )
     return db
 
-
 def main() -> None:
-    """ Main function
+    """ Main function 
     """
-    # Get database connection
+    # Establish database connection
     db = get_db()
-    
-    # Create a cursor obj and add it to the db connection
-    with db.cursor() as cursor:
 
-        # Execute the SQL command
-        cursor.execute("SELECT * FROM users")
-
-        # Grab all the data
-        users = cursor.fetchall()
-    
-    # Fields to regex
     sensitive_fields = [
         "name",
         "email",
@@ -136,14 +125,29 @@ def main() -> None:
         "ssn",
         "password"
     ]
-    
-    for user in users:
-        filtered_data = filter_datum(sensitive_fields, "***", user, ";")
-        
-        # Log that data
-        logger = get_logger() # Create a logger obj
-        logger.info(filtered_data)
 
-# Only main will run
+    try:
+        # Create a cursor object
+        cursor = db.cursor()
+
+        # Get all the user rows
+        users = cursor.execute("SELECT * FROM users")
+
+        for user in users:
+            filtered_user = filter_datum(sensitive_fields, "***", user, ";")
+
+    # Error handling
+    except Exception as e:
+        print("Error occured while fetching data from database")
+    
+    finally:
+        # Ensure the cursor is closed
+        if cursor:
+            cursor.close()
+        
+        # Ensure the database connection is closed
+        if db:
+            db.close()
+
 if __name__ == "__main__":
     main()
