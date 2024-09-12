@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """ Module that hashes and salts passwords,
     and checks against them to verify login state
-    
-    Functions: 
+
+    Functions:
         - hash_password():
             hashes and salts a string (password)
         - is_valid():
