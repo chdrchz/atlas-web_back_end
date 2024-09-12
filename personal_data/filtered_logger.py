@@ -2,14 +2,18 @@
 """ Module that obfuscates data
 
     Functions:
-        - filter_datum:
+        - filter_datum():
             Obfuscates field data and
             returns a string with redacted Personal Data
         - get_logger():
             Creates a logger obj w/ all pertinent data
             and returns a logging.Logger obj that
             filter_datum will use
-
+        - get_db():
+            Returns a secure connection to a database
+        - main():
+            puts it all together and further formats the output string
+            
     Classes:
         - RedactingFormatter: Filters data
 """
