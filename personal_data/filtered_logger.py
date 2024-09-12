@@ -14,15 +14,16 @@
         - RedactingFormatter: Filters data
 """
 
+import datetime
 import os
 import re
 import logging
 from typing import List
-import mysql.connector
+from mysql.connector import connect, MySQLConnection
 
 # Environment variables for database connection
 username = os.getenv('PERSONAL_DATA_DB_USERNAME', 'root')
-password = os.getenv('PERSONAL_DATA_DB_PASSWORD', '')
+password = os.getenv('PERSONAL_DATA_DB_PASSWORD', 'root')
 host = os.getenv('PERSONAL_DATA_DB_HOST', 'localhost')
 database = os.getenv('PERSONAL_DATA_DB_NAME', 'my_db')
 
@@ -68,9 +69,8 @@ def filter_datum(
         Return:
             - the message obfuscated
     """
-    pattern = rf'({"|".join(fields)})=([^ {re.escape(separator)}]*)'
-
-    return re.sub(pattern, lambda match: match.group(1)+'='+redaction, message)
+    pattern = rf'({("|".join(fields))})=([^;]*?)(?={separator}|$)'
+    return re.sub(pattern, lambda match: f"{match.group(1)}={redaction}", message)
 
 
 def get_logger() -> logging.Logger:
@@ -118,27 +118,45 @@ def main() -> None:
     # Establish database connection
     db = get_db()
 
-    sensitive_fields = [
-        "name",
-        "email",
-        "phone",
-        "ssn",
-        "password"
-    ]
+    sensitive_fields = {
+        "name": "name",
+        "email": "email",
+        "phone": "phone",
+        "ssn": "ssn",
+        "password": "password"
+    }
 
     try:
         # Create a cursor object
         cursor = db.cursor()
 
-        # Get all the user rows
-        users = cursor.execute("SELECT * FROM users")
+        # Execute the query
+        cursor.execute("SELECT * FROM users")
+
+        # Fetch all rows
+        users = cursor.fetchall()
 
         for user in users:
-            filtered_user = filter_datum(sensitive_fields, "***", user, ";")
+           user_dict = {
+                "name": user[0],
+                "email": user[1],
+                "phone": user[2],
+                "ssn": user[3],
+                "password": user[4],
+                "ip": user[5],
+                "last_login": user[6],
+                "user_agent": user[7]
+            }
+            
+        # Format the user data as a string
+        user_str = '; '.join(f"{key}={value}" for key, value in user_dict.items())
+        
+        # Redact sensitive information
+        filtered_user = filter_datum(sensitive_fields.keys(), "***", user_str, ";")
+        print(f"[HOLBERTON] user_data INFO {datetime.datetime.now()}: {filtered_user}")
 
-    # Error handling
     except Exception as e:
-        print("Error occured while fetching data from database")
+        print(f"Error occurred while fetching data from database: {e}")
     
     finally:
         # Ensure the cursor is closed
