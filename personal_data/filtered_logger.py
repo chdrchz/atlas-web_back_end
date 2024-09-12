@@ -151,22 +151,22 @@ def main() -> None:
                 "last_login": user[6],
                 "user_agent": user[7]
             }
-            
+  
         # Format the user data as a string
         user_str = '; '.join(f"{key}={value}" for key, value in user_dict.items())
-        
+
         # Redact sensitive information
         filtered_user = filter_datum(sensitive_fields.keys(), "***", user_str, ";")
         print(f"[HOLBERTON] user_data INFO {datetime.datetime.now()}: {filtered_user}")
 
     except Exception as e:
         print(f"Error occurred while fetching data from database: {e}")
-    
+
     finally:
         # Ensure the cursor is closed
         if cursor:
             cursor.close()
-        
+
         # Ensure the database connection is closed
         if db:
             db.close()
