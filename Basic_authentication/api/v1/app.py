@@ -10,7 +10,7 @@ import os
 
 
 app = Flask(__name__)
-app.register_blueprint(app_views)
+app.register_blueprint(app_views, url_prefix='/api/v1')
 CORS(app, resources={r"/api/v1/*": {"origins": "*"}})
 
 
@@ -19,6 +19,12 @@ def not_found(error) -> str:
     """ Not found handler
     """
     return jsonify({"error": "Not found"}), 404
+
+@app.errorhandler(401)
+def unauthorized_error(error) -> str:
+    """ Not authorized handler
+    """
+    return jsonify({"error": "Unauthorized"}), 401
 
 
 if __name__ == "__main__":
