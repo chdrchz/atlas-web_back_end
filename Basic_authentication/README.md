@@ -1,50 +1,42 @@
-# Authentication Learning Project
+# Simple API
 
-This project focuses on understanding various authentication concepts, specifically **Basic Authentication** and encoding using **Base64**. By the end of this project, you will be able to explain these concepts confidently.
+Simple HTTP API for playing with `User` model.
 
-## Learning Objectives
 
-By completing this project, you should be able to:
+## Files
 
-### General
+### `models/`
 
-- Understand what **authentication** means.
-- Know what **Base64** is.
-- Encode a string using **Base64**.
-- Understand what **Basic authentication** means.
-- Send an **Authorization header**.
+- `base.py`: base of all models of the API - handle serialization to file
+- `user.py`: user model
 
-## Requirements
+### `api/v1`
 
-### Python Scripts
+- `app.py`: entry point of the API
+- `views/index.py`: basic endpoints of the API: `/status` and `/stats`
+- `views/users.py`: all users endpoints
 
-- All scripts will be interpreted/compiled on **Ubuntu 20.04 LTS** using **Python 3.9**.
-- All files should:
-  - End with a new line.
-  - Begin with the line: `#!/usr/bin/env python3`.
-  - Be executable.
-- A `README.md` file is required at the root of the project folder.
-- Code should conform to **pycodestyle** (version 2.5).
-- The length of files will be tested using `wc`.
 
-### Documentation
+## Setup
 
-- All modules, classes, and functions should have comprehensive documentation:
-  - **Modules** should have a docstring describing their purpose:
-    ```python
-    python3 -c 'print(__import__("my_module").__doc__)'
-    ```
-  - **Classes** should have a docstring explaining their role:
-    ```python
-    python3 -c 'print(__import__("my_module").MyClass.__doc__)'
-    ```
-  - **Functions** (inside and outside classes) should have a docstring explaining their purpose:
-    ```python
-    python3 -c 'print(__import__("my_module").my_function.__doc__)'
-    python3 -c 'print(__import__("my_module").MyClass.my_function.__doc__)'
-    ```
-- Documentation should be a complete sentence explaining the purpose of the module, class, or method, and its length will be verified.
+```
+$ pip3 install -r requirements.txt
+```
 
-## Author
 
-- GitHub: [chdrchz](https://github.com/chdrchz)
+## Run
+
+```
+$ API_HOST=0.0.0.0 API_PORT=5000 python3 -m api.v1.app
+```
+
+
+## Routes
+
+- `GET /api/v1/status`: returns the status of the API
+- `GET /api/v1/stats`: returns some stats of the API
+- `GET /api/v1/users`: returns the list of users
+- `GET /api/v1/users/:id`: returns an user based on the ID
+- `DELETE /api/v1/users/:id`: deletes an user based on the ID
+- `POST /api/v1/users`: creates a new user (JSON parameters: `email`, `password`, `last_name` (optional) and `first_name` (optional))
+- `PUT /api/v1/users/:id`: updates an user based on the ID (JSON parameters: `last_name` and `first_name`)
