@@ -6,7 +6,6 @@ from flask import request
 from typing import List, TypeVar
 
 # Define a TypeVar for User
-User = TypeVar('User')
 
 
 class Auth():
@@ -62,7 +61,7 @@ class Auth():
         # or the header itself if it is
         return request.headers.get('Authorization', None)
 
-    def current_user(self, request=None) -> User:
+    def current_user(self, request=None) -> TypeVar('User'):
         """
         This method will later return the current user.
         Currently, it returns None as a placeholder.
