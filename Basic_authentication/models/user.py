@@ -2,6 +2,7 @@
 """ User module
 """
 import hashlib
+from typing import List
 from models.base import Base
 
 
@@ -32,6 +33,13 @@ class User(Base):
             self._password = None
         else:
             self._password = hashlib.sha256(pwd.encode()).hexdigest().lower()
+
+    @classmethod
+    def search(cls, user_email: str) -> List['User']:
+        """ Searches user data and returns user instances
+            based on email and password
+        """
+        return [user for user in cls.users_db if user.email == user_email]
 
     def is_valid_password(self, pwd: str) -> bool:
         """ Validate a password
