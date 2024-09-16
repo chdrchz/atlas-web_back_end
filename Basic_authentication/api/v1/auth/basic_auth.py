@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
-""" Empty AH class
+""" Module that contains a class to handle basic authentication
 
     Functions:
         - def extract_base64_authorization_header(
-            self, authorization_header: str) -> str: extracts base 64 part
+            self, authorization_header: str
+            ) -> str: Extracts base 64 part
 """
 
+import base64
 from api.v1.auth.auth import Auth
 
 
@@ -20,7 +22,7 @@ class BasicAuth(Auth):
 
             Args:
                 - self
-                - authorization_header: header to be parsed
+                - authorization_header: Header to be parsed
 
             Return:
                 - The base 64 part of the header
@@ -42,4 +44,31 @@ class BasicAuth(Auth):
             start_index = len(header)
             return authorization_header[start_index:]
         else:
+            return None
+
+    def decode_base64_authorization_header(
+        self, base64_authorization_header: str
+        ) -> str:
+        """ Function that handles decoding the base64 header
+
+            Args:
+                - self
+                - base64_authorization_header: Header to be decoded
+
+            Return:
+                - The decoded value of the header
+        """
+         # No header is provided
+        if base64_authorization_header is None:
+            return None
+
+        # Header must be a valid string
+        if not isinstance(base64_authorization_header, str):
+            return None
+        
+        # Is it valid Base64?
+        try:
+            base_64 = base64.b64decode(base64_authorization_header)
+            return base_64.decode('utf-8')
+        except UnicodeDecodeError:
             return None
