@@ -158,16 +158,27 @@ class BasicAuth(Auth):
             return None
 
     def current_user(self, request=None) -> TypeVar('User'):
-        """
+        """ Overloads Auth and retrieves the user instance
         """
         auth_header = self.authorization_header(request)
         try:
+
+            # Only if the header exists
             if(auth_header):
+
+                # Grab the base 64 header
                 base64_auth_header = self.extract_base64_authorization_header(auth_header)
+
+                # Decode the header into plain text
                 decoded_auth_header = self.decode_base64_authorization_header(base64_auth_header)
+
+                # Get the username and password from the header
                 username, password = self.extract_user_credentials(decoded_auth_header)
-                
+
+                # Create the user instance
                 user = self.user_object_from_credentials(username, password)
                 return user
+
+        # The header doesn't exist
         except Exception:
             return None
