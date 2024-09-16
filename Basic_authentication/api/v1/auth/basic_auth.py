@@ -48,8 +48,8 @@ class BasicAuth(Auth):
             return None
 
     def decode_base64_authorization_header(
-            self, base64_authorization_header: str
-        ) -> str:
+        self, base64_authorization_header: str
+    ) -> str:
         """ Function that handles decoding the base64 header
 
             Args:
@@ -69,7 +69,7 @@ class BasicAuth(Auth):
 
         # Is it valid Base64?
         try:
-            base_64 = base64.b64decode(base64_authorization_header, 
+            base_64 = base64.b64decode(base64_authorization_header,
                                        validate=True)
 
             # Decode to utf-8
