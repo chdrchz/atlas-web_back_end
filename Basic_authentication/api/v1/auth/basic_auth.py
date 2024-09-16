@@ -11,8 +11,10 @@
             ) -> str: Decodes header into utf-8 format
 """
 
+import re
 import base64
 import binascii
+from typing import Tuple
 from api.v1.auth.auth import Auth
 
 
@@ -80,3 +82,30 @@ class BasicAuth(Auth):
             return base_64.decode('utf-8')
         except (binascii.Error, UnicodeDecodeError):
             return None
+
+    def extract_user_credentials(
+        self, decoded_base64_authorization_header: str
+    ) -> Tuple[str, str]:
+        """ Extracts the user email and password from the 
+            decoded Base64 authorization header
+
+            Args:
+                - self
+                - decoded_base64_authorization_header: Decoded header to be parsed
+
+            Return:
+                - A tuple including user email and password
+        """
+        # No header is provided
+        if decoded_base64_authorization_header is None:
+            return None, None
+        
+        # Header must be a valid string
+        if not isinstance(decoded_base64_authorization_header, str):
+            return None, None
+        
+        # Regular expression to match the format "email:password"
+        match = re.fullmatch(r'([^:]+):(.+)', decoded_base64_authorization_header)
+        if match:
+            return match.group(1), match.group(2)
+        return None, None
