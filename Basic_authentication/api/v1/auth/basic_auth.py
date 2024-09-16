@@ -2,18 +2,28 @@
 """ Empty AH class
 
     Functions:
-        - def extract_base64_authorization_header(self, authorization_header: str) -> str:
+        - def extract_base64_authorization_header(
+            self, authorization_header: str) -> str: extracts base 64 part
 """
 
 from api.v1.auth.auth import Auth
 
 
 class BasicAuth(Auth):
-    """ This will do something in the future
+    """ Class that handles basic authentication
     """
 
-    def extract_base64_authorization_header(self, authorization_header: str) -> str:
-        """ Function that 
+    def extract_base64_authorization_header(
+        self, authorization_header: str
+    ) -> str:
+        """ Function that extracts the base 64 part of the header
+
+            Args:
+                - self
+                - authorization_header: header to be parsed
+
+            Return:
+                - The base 64 part of the header
         """
         # No header is provided
         if authorization_header is None:
