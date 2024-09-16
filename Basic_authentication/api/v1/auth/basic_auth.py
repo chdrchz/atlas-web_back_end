@@ -86,12 +86,12 @@ class BasicAuth(Auth):
     def extract_user_credentials(
         self, decoded_base64_authorization_header: str
     ) -> Tuple[str, str]:
-        """ Extracts the user email and password from the 
+        """ Extracts the user email and password from the
             decoded Base64 authorization header
 
             Args:
                 - self
-                - decoded_base64_authorization_header: Decoded header to be parsed
+                - decoded_base64_authorization_header: Decoded header to parse
 
             Return:
                 - A tuple including user email and password
@@ -99,13 +99,14 @@ class BasicAuth(Auth):
         # No header is provided
         if decoded_base64_authorization_header is None:
             return None, None
-        
+
         # Header must be a valid string
         if not isinstance(decoded_base64_authorization_header, str):
             return None, None
-        
+
         # Regular expression to match the format "email:password"
-        match = re.fullmatch(r'([^:]+):(.+)', decoded_base64_authorization_header)
+        pattern = r'([^:]+):(.+)'
+        match = re.fullmatch(pattern, decoded_base64_authorization_header)
         if match:
             return match.group(1), match.group(2)
         return None, None
