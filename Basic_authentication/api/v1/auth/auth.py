@@ -46,12 +46,19 @@ class Auth():
         return True
 
     def authorization_header(self, request=None) -> str:
-        """ 
+        """ Locates the authorization header
+
+            Args:
+                - self
+                - request: the header to retrieve
+
+            Return:
+                - The header retrieved in string format
         """
         if request is None:
             return None
 
-        # Returns None if Authorization isn't found, 
+        # Returns None if Authorization isn't found,
         # or the header itself if it is
         return request.headers.get('Authorization', None)
 
