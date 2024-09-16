@@ -17,6 +17,9 @@
         - def user_object_from_credentials(
             self, user_email: str, user_pwd: str
              -> User: Extracts the email and password for the current user
+
+        - def current_user(self, request=None) -> TypeVar('User'):
+            Overloads Auth
 """
 
 import re
