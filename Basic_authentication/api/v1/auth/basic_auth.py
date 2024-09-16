@@ -4,7 +4,11 @@
     Functions:
         - def extract_base64_authorization_header(
             self, authorization_header: str
-            ) -> str: Extracts base 64 part
+            ) -> str: Extracts base 64 part from header
+
+        - def decode_base64_authorization_header(
+            self, base64_authorization_header: str
+            ) -> str: Decodes header into utf-8 format
 """
 
 import base64
