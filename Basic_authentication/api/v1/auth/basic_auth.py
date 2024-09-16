@@ -13,18 +13,30 @@
         - def extract_user_credentials(
             self, decoded_base64_authorization_header: str
             ) -> Tuple[str, str]: Extracts the user email and password
+
+        - def user_object_from_credentials(
+            self, user_email: str, user_pwd: str
+             -> User: Extracts the email and password for the current user
 """
 
 import re
 import base64
 import binascii
-from typing import Tuple
+from models.user import User
+from typing import Tuple, TypeVar
 from api.v1.auth.auth import Auth
+
+User = TypeVar('User')
 
 
 class BasicAuth(Auth):
     """ Class that handles basic authentication
     """
+
+    def __init__(self):
+        """ Initialization method jic
+        """
+        pass
 
     def extract_base64_authorization_header(
         self, authorization_header: str
@@ -115,4 +127,31 @@ class BasicAuth(Auth):
             return match.group(1), match.group(2)
         return None, None
 
-    def user_object_from_credentials(self, user_email: str, user_pwd: str) -> TypeVar('User'):
+    def user_object_from_credentials(
+        self, user_email: str, user_pwd: str
+    ) -> User:
+        """ Creates a user object from extract_user_credentials()
+
+            Args:
+                - self
+                - user_email: User email
+                - user_pwd: User password
+
+            Return:
+                - A user instance based off of email and password
+        """
+        # Email and password are empty
+        if user_email is None and user_pwd is None:
+            return None
+
+        # Email and password must be valid strings
+        if not isinstance(user_email, str) and not isinstance(user_pwd, str):
+            return None
+        
+        user = User.search(User, user_email)
+        
+        # Validate password is the correct password per user
+        if User.is_valid_password(self, user_pwd) == False:
+            return None
+        else:
+            return user
