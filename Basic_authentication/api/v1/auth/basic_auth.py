@@ -26,8 +26,6 @@ from models.user import User
 from typing import Tuple, TypeVar
 from api.v1.auth.auth import Auth
 
-User = TypeVar('User')
-
 
 class BasicAuth(Auth):
     """ Class that handles basic authentication
