@@ -14,11 +14,36 @@ class Auth():
     """
 
     def require_auth(self, path: str, excluded_paths: List[str]) -> bool:
+        """ Method that searches the path
+
+            Args:
+                - self
+                - path: The endpoint or URL path of the incoming request
+                - excluded_paths: Paths that don't need authentication
+
+            Return:
+                - True: If the path does not exist in excluded paths,
+                    or if path is none
+                - False: If it does exist in excluded_paths
         """
-        This method will later handle path authentication.
-        Currently, it returns False as a placeholder.
-        """
-        return False
+
+        # No authentication required
+        if path is None:
+            return True
+
+        # No authentication needed since there is nothing to exclude
+        if not excluded_paths:
+            return True
+
+        # Normalize trailing slash
+        if not path.endswith('/'):
+            path += '/'
+
+        # If the path matches the path in excluded paths
+        for excluded in excluded_paths:
+            if path.endswith('/') and path == excluded:
+                return False
+        return True
 
     def authorization_header(self, request=None) -> str:
         """
