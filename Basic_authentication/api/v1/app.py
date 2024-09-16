@@ -1,6 +1,12 @@
 #!/usr/bin/env python3
-"""
-Route module for the API
+""" Route module for the API
+
+    Functions:
+        - before_request_handler(): Runs before everythign else,
+            and handles authorizing paths
+        - def not_found(error) -> str: Throws a 404 error
+        - def unauthorized(error) -> str: Throws a 401 error
+        - def forbidden(error) -> str: Throws a 403 error
 """
 from os import getenv
 from api.v1.views import app_views
@@ -24,7 +30,7 @@ if auth_type:
 
 @app.before_request
 def before_request_handler():
-    """ This function will be executed before each request
+    """ Authorizing access based on paths
     """
     if auth is None:
         return
