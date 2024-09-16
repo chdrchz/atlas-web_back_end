@@ -20,14 +20,12 @@ class Auth():
         """
         return False
 
-
     def authorization_header(self, request=None) -> str:
         """
         This method will later return the value of the Authorization header.
         Currently, it returns None as a placeholder.
         """
         return None
-
 
     def current_user(self, request=None) -> User:
         """
