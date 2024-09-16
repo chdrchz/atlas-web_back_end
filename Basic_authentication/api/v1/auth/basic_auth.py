@@ -127,7 +127,7 @@ class BasicAuth(Auth):
 
     def user_object_from_credentials(
         self, user_email: str, user_pwd: str
-    ) -> User:
+    ) -> TypeVar('User'):
         """ Creates a user object from extract_user_credentials()
 
             Args:
@@ -145,13 +145,13 @@ class BasicAuth(Auth):
         # Email and password must be valid strings
         if not isinstance(user_email, str) and not isinstance(user_pwd, str):
             return None
-        
+
         users = User.search({"email": user_email})
         if not users:
             return None
 
         user = users[0]
-        
+
         # Is the password valid for this user?
         if not user.is_valid_password(user_pwd):
             return None
