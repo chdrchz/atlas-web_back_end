@@ -22,8 +22,13 @@ CORS(app, resources={r"/api/v1/*": {"origins": "*"}})
 auth = None
 
 # Check environment variable and configure authentication
+# based on auth_type
 auth_type = os.getenv('AUTH_TYPE')
-if auth_type:
+
+if auth_type == "basic_auth":
+    from api.v1.auth.auth import BasicAuth
+    auth = BasicAuth()
+else:
     from api.v1.auth.auth import Auth
     auth = Auth()
 
