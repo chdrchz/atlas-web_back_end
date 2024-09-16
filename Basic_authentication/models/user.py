@@ -5,8 +5,6 @@ import hashlib
 from typing import List
 from models.base import Base
 
-users_db = []
-
 class User(Base):
     """ User class
     """
