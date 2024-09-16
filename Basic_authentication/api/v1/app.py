@@ -9,6 +9,7 @@
         - def forbidden(error) -> str: Throws a 403 error
 """
 from os import getenv
+from api.v1.auth.auth import Auth
 from api.v1.views import app_views
 from flask import Flask, jsonify, abort, request
 from flask_cors import (CORS, cross_origin)
