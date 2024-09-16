@@ -9,6 +9,10 @@
         - def decode_base64_authorization_header(
             self, base64_authorization_header: str
             ) -> str: Decodes header into utf-8 format
+
+        - def extract_user_credentials(
+            self, decoded_base64_authorization_header: str
+            ) -> Tuple[str, str]: Extracts the user email and password
 """
 
 import re
@@ -110,3 +114,5 @@ class BasicAuth(Auth):
         if match:
             return match.group(1), match.group(2)
         return None, None
+
+    def user_object_from_credentials(self, user_email: str, user_pwd: str) -> TypeVar('User'):
