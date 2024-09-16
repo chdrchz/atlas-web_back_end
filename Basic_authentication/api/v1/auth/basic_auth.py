@@ -139,13 +139,13 @@ class BasicAuth(Auth):
                 - A user instance based off of email and password
         """
         # Email and password are empty
-        if user_email is None and user_pwd is None:
+        if user_email is None or user_pwd is None:
             return None
 
         # Email and password must be valid strings
         if not isinstance(user_email, str) and not isinstance(user_pwd, str):
             return None
-        
+
         try:
             users = User.search({"email": user_email})
             if not users:
@@ -154,6 +154,6 @@ class BasicAuth(Auth):
                 if user.is_valid_password(user_pwd):
                     return user
 
-        except:
+        except Exception:
             return None
 
