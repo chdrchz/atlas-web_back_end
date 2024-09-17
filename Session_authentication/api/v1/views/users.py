@@ -44,7 +44,6 @@ def view_one_user(user_id: str = None) -> str:
     except Exception as e:
         # General error handling for unexpected issues
         app.logger.error(f"Exception occurred: {e}")
-        abort(500)  # Internal Server Error
 
 
 @app_views.route('/users/<user_id>', methods=['DELETE'], strict_slashes=False)
