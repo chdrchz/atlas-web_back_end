@@ -37,36 +37,24 @@ else:
 def before_request_handler():
     """ Authorizing access based on paths
     """
-    try:
-        if auth is None:
-            return
+    if auth is None:
+        return
 
-        # No authentication needed for these
-        excluded_paths = [
-            '/api/v1/status/',
-            '/api/v1/unauthorized/',
-            '/api/v1/forbidden/'
-        ]
+    # No authentication needed for these
+    excluded_paths = [
+        '/api/v1/status/',
+        '/api/v1/unauthorized/',
+        '/api/v1/forbidden/'
+    ]
 
-        # Is the path in public paths?
-        if request.path in excluded_paths:
-            return
-
-        # Try to assign the current user
+    if auth is not None:
         request.current_user = auth.current_user(request)
-
-        # Do auth stuff
-        if request.path not in excluded_paths and \
-                auth.require_auth(request.path, excluded_paths):
-            if auth.authorization_header(request) is None:
-                abort(401)  # Unauthorized
-            if auth.current_user(request) is None:
-                abort(403)  # Forbidden
-
-    except Exception as e:
-        # Catch any other general exceptions
-        app.logger.error(f"Exception occurred: {e}")
-        abort(500)  # Internal Server Error
+    if auth.require_auth(request.path, excluded_paths) is True:
+        if (auth.authorization_header(request) is None
+                and auth.session_cookie(request) is None):
+            abort(401)
+        if request.current_user is None:
+            abort(403)
 
 
 @app.errorhandler(404)
