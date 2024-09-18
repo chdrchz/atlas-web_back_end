@@ -164,6 +164,8 @@ class BasicAuth(Auth):
         """ Overloads Auth and retrieves the user instance
         """
         auth_header = self.authorization_header(request)
+        print(f"Authorization Header: {auth_header}")
+
         try:
 
             # Only if the header exists
