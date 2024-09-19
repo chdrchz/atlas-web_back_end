@@ -41,20 +41,30 @@ def before_req():
     """Function to handle all request authorization"""
     if auth is None:
         return
-    if not auth.require_auth(request.path, ['/api/v1/status/',
-                                            '/api/v1/unauthorized/',
-                                            '/api/v1/forbidden/',
-                                            '/api/v1/auth_session/login/']):
+
+    if not auth.require_auth(request.path, [
+        '/api/v1/status/', 
+        '/api/v1/unauthorized/', 
+        '/api/v1/forbidden/', 
+        '/api/v1/auth_session/login/']):
         return
+
+    # Check for authorization header or session cookie
     auth_header = auth.authorization_header(request)
-    if auth_header is None:
+    session_cookie = auth.session_cookie(request)
+
+    if auth_header is None and session_cookie is None:
         abort(401)
-    request.current_user = auth.current_user(request)
+
+    # Authenticate based on auth_header or session cookie
+    if auth_header:
+        request.current_user = auth.current_user(request)
+    elif session_cookie:
+        request.current_user = auth.current_user(request, session=True)
+
+    # User is not authenticated
     if request.current_user is None:
         abort(403)
-
-    if auth.authorization_header(request) and auth.session_cookie(request):
-        abort(401)
 
 
 @app.errorhandler(404)
