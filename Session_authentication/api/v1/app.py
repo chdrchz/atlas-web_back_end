@@ -60,7 +60,7 @@ def before_req():
     if auth_header:
         request.current_user = auth.current_user(request)
     elif session_cookie:
-        request.current_user = auth.current_user(request, session=True)
+        request.current_user = auth.current_user(request)
 
     # User is not authenticated
     if request.current_user is None:
