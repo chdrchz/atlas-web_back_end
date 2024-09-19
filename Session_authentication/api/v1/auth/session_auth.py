@@ -1,5 +1,12 @@
 #!/usr/bin/env python3
-"""_summary_
+""" Module that contains a class to handle session authentication
+
+    Functions:
+        - create_session(self, user_id: str = None) -> str:
+            - returns a session_id
+
+        - user_id_for_session_id(self, session_id: str = None) -> str:
+            - 
 """
 
 import uuid
@@ -7,21 +14,18 @@ from api.v1.auth.auth import Auth
 
 
 class SessionAuth(Auth):
-    """_summary_
-
-    Args:
-        Auth (_type_): _description_
+    """ Class that handles session authentication
     """
     user_id_by_session_id = {}
 
     def create_session(self, user_id: str = None) -> str:
-        """_summary_
+        """ Method that returns a session_id
 
         Args:
-            user_id (str, optional): _description_. Defaults to None.
+            user_id (str): the user_id of the current user. Defaults to None.
 
         Returns:
-            str: _description_
+            str: session_id in a json formatted string
         """
 
         if isinstance(user_id, str) and user_id:
@@ -31,4 +35,20 @@ class SessionAuth(Auth):
             return session_id
 
         # User_id is not a valid, non-empty string
+        return None
+    
+    def user_id_for_session_id(self, session_id: str = None) -> str:
+        """_summary_
+
+        Args:
+            session_id (str): session_id for session. Defaults to None.
+
+        Returns:
+            str: The value of the session_id key
+        """
+
+        if isinstance(session_id, str) and session_id:
+            return self.user_id_by_session_id.get(session_id)
+        
+        # Session_id is not a valid, non-empty string
         return None
