@@ -56,12 +56,10 @@ def before_request_handler():
             auth.require_auth(request.path, excluded_paths):
         if auth.authorization_header(request) is None:
             abort(401)  # Unauthorized
-        if auth.current_user(request) is None:
-            abort(403)  # Forbidden
 
 
 @app.errorhandler(404)
-def not_found(error) -> str:
+def not_found(error) -> str:d
     """ Not found handler
     """
     return jsonify({"error": "Not found"}), 404
