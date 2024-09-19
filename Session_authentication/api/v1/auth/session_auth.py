@@ -7,6 +7,9 @@
 
         - user_id_for_session_id(self, session_id: str = None) -> str:
             - returns the value associated with the key session_id
+
+        - def current_user(self, request=None):
+            - returns a user instance based on a session cookie
 """
 
 import uuid
