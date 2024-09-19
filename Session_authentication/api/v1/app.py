@@ -34,30 +34,20 @@ else:
 
 
 @app.before_request
-def before_request_handler():
-    """ Authorizing access based on paths
-    """
+def before_req():
+    """Function to handle all request authorization"""
     if auth is None:
         return
-
-    # No authentication needed for these
-    excluded_paths = [
-        '/api/v1/status/',
-        '/api/v1/unauthorized/',
-        '/api/v1/forbidden/'
-    ]
-
-    # Is the path in public paths?
-    if request.path in excluded_paths:
+    if not auth.require_auth(request.path, ['/api/v1/status/',
+                                            '/api/v1/unauthorized/',
+                                            '/api/v1/forbidden/']):
         return
-
-    # Do auth stuff
-    if request.path not in excluded_paths and \
-            auth.require_auth(request.path, excluded_paths):
-        if auth.authorization_header(request) is None:
-            abort(401)  # Unauthorized
-    
+    auth_header = auth.authorization_header(request)
+    if auth_header is None:
+        abort(401)
     request.current_user = auth.current_user(request)
+    if request.current_user is None:
+        abort(403)
 
 
 @app.errorhandler(404)
