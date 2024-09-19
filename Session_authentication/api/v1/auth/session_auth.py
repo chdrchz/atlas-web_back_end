@@ -6,7 +6,7 @@
             - returns a session_id
 
         - user_id_for_session_id(self, session_id: str = None) -> str:
-            - 
+            - returns the value associated with the key session_id
 """
 
 import uuid
@@ -36,7 +36,7 @@ class SessionAuth(Auth):
 
         # User_id is not a valid, non-empty string
         return None
-    
+
     def user_id_for_session_id(self, session_id: str = None) -> str:
         """_summary_
 
@@ -49,6 +49,6 @@ class SessionAuth(Auth):
 
         if isinstance(session_id, str) and session_id:
             return self.user_id_by_session_id.get(session_id)
-        
+
         # Session_id is not a valid, non-empty string
         return None
