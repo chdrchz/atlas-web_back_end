@@ -29,5 +29,6 @@ class SessionAuth(Auth):
                 # Create a session
                 self.session_id = str(uuid.uuid4())
                 self.user_id_by_session_id[self.session_id] = user_id
+                return self.session_id
         except Exception as e:
             return None
