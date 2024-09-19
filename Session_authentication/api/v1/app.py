@@ -37,27 +37,20 @@ else:
 
 
 @app.before_request
-def before_request_handler():
-    """ Authorizing access based on paths
-    """
+def before_req():
+    """Function to handle all request authorization"""
     if auth is None:
         return
-
-    # No authentication needed for these
-    excluded_paths = [
-        '/api/v1/status/',
-        '/api/v1/unauthorized/',
-        '/api/v1/forbidden/'
-    ]
-
-    if auth is not None:
-        request.current_user = auth.current_user(request)
-    if auth.require_auth(request.path, excluded_paths) is True:
-        if (auth.authorization_header(request) is None
-                and auth.session_cookie(request) is None):
-            abort(401)
-        if request.current_user is None:
-            abort(403)
+    if not auth.require_auth(request.path, ['/api/v1/status/',
+                                            '/api/v1/unauthorized/',
+                                            '/api/v1/forbidden/']):
+        return
+    auth_header = auth.authorization_header(request)
+    if auth_header is None:
+        abort(401)
+    request.current_user = auth.current_user(request)
+    if request.current_user is None:
+        abort(403)
 
 
 @app.errorhandler(404)
