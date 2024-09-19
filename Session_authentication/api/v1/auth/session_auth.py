@@ -24,14 +24,11 @@ class SessionAuth(Auth):
             str: _description_
         """
 
-        try:
-            if user_id is not None or isinstance(user_id, str):
-                # Create a session
-                self.session_id = str(uuid.uuid4())
-                self.user_id_by_session_id[self.session_id] = user_id
-                return self.session_id
-
-        except Exception as e:
-            if not isinstance(user_id, str):
-                return None
-            return None
+        if isinstance(user_id, str) and user_id:
+            # Create a session
+            session_id = str(uuid.uuid4())
+            self.user_id_by_session_id[session_id] = user_id
+            return session_id
+        
+        # User_id is not a valid, non-empty string
+        return None
