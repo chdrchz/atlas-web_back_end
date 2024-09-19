@@ -10,6 +10,7 @@
 """
 
 import uuid
+from models.user import User
 from api.v1.auth.auth import Auth
 
 
@@ -52,3 +53,18 @@ class SessionAuth(Auth):
 
         # Session_id is not a valid, non-empty string
         return None
+
+    def current_user(self, request=None):
+        """ Returns a user instance based on a cookie value
+
+        Args:
+            request (_type_): HTTP request. Defaults to None.
+        """
+        # Get the session cookie
+        session_cookie = self.session_cookie(request)
+
+        # Get the user_id value from the key, session_cookie
+        user_id = self.user_id_for_session_id(session_cookie)
+
+        # Return user instance
+        return User.get(user_id)
