@@ -26,7 +26,7 @@ def login() -> str:
             
             user = users[0]
             # If the User exists, try to authenticate the password
-            if user.is_valid_password(password) is False:
+            if not user.is_valid_password(password):
                 return jsonify({"error": "wrong password"}), 401
 
             # The user is authenticated with password, create a session
