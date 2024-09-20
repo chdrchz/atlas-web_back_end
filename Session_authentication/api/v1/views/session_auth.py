@@ -15,38 +15,38 @@ def login() -> str:
     Returns:
         str: _description_
     """
-    # Get the email and password
+    # Get the email and password from the request form
     email = request.form.get('email')
     password = request.form.get('password')
-    
-    # If the email is valid, find the user
-    if email:
-        users = User.search({"email": email})
-        user = users[0]
-        if not user:
-            return jsonify({"error": "no user found for this email"}), 404
 
-        # If the User exists, try to authenticate the password
-        if not password:
-            return jsonify({"error": "password missing"}), 400            
-
-        if not user.is_valid_password(password):
-            return jsonify({"error": "wrong password"}), 401
-
-        # The user is authenticated with password, create a session
-        from api.v1.app import auth
-   
-        # Create the session
-        session_id = auth.create_session(user.id)
-
-        # Grab that data from User
-        response = make_response(user.to_json())
-
-        # Set the cookie for the user
-        response.set_cookie(os.getenv(
-                'SESSION_NAME', '_my_session_id'), session_id)
-        return response
-
-    # Email was not found
-    else:
+    # Check if the email is provided
+    if not email:
         return jsonify({"error": "email missing"}), 400
+    
+    # Check if the password is provided
+    if not password:
+        return jsonify({"error": "password missing"}), 400
+
+    # Search for the user with the given email
+    users = User.search({"email": email})
+
+    # If no users are found, return a 404 error
+    if not users or len(users) == 0:
+        return jsonify({"error": "no user found for this email"}), 404
+
+    # Assuming there's at least one user, take the first user
+    user = users[0]
+
+    # Check if the password is valid
+    if not user.is_valid_password(password):
+        return jsonify({"error": "wrong password"}), 401
+
+    # The user is authenticated, create a session
+    from api.v1.app import auth
+    session_id = auth.create_session(user.id)
+
+    # Generate the response with the user info and set the session cookie
+    response = make_response(user.to_json())
+    response.set_cookie(os.getenv('SESSION_NAME', '_my_session_id'), session_id)
+
+    return response
