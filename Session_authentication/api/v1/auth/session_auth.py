@@ -83,15 +83,15 @@ class SessionAuth(Auth):
             return False
 
         # Verify request contains the session ID cookie
-        session_cookie = self.session_cookie(request)
-        if not session_cookie:
+        session_id = self.session_cookie(request)
+        if not session_id:
             return False
 
-        # Verify user
-        user = self.user_id_for_session_id(session_cookie)
-        if not user:
+        # Verify user_id
+        user_id = self.user_id_for_session_id(session_id)
+        if user_id is None:
             return False
 
         # Delete the session
-        del self.user_id_by_session_id[session_cookie]
+        del self.user_id_by_session_id[session_id]
         return True
