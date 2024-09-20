@@ -25,10 +25,6 @@ def login() -> str:
         if users:
             user = users[0]
 
-            # If the User exists, try to authenticate the password
-            if user.is_valid_password(password) is False:
-                return jsonify({"error": "wrong password"}), 401
-
         # User was not found
         else:
             return jsonify({"error": "no user found for this email"}), 404
@@ -36,6 +32,10 @@ def login() -> str:
     # Email was not found
     else:
         return jsonify({"error": "email missing"}), 400
+    
+    # If the User exists, try to authenticate the password
+    if not user.is_valid_password(password):
+        return jsonify({"error": "wrong password"}), 401
     
     # The user is authenticated with password, create a session
     from api.v1.app import auth
