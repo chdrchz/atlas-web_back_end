@@ -43,9 +43,7 @@ def login() -> str:
                 'SESSION_NAME', '_my_session_id'), session_id)
             return response
 
-        # User was not found
-        else:
-            return jsonify({"error": "no user found for this email"}), 404   
+        
 
     # Email was not found
     else:
