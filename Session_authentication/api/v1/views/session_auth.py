@@ -10,10 +10,11 @@ from flask import abort, jsonify, make_response, request
 
 @app_views.route('/auth_session/login', methods=['POST'], strict_slashes=False)
 def login() -> str:
-    """_summary_
+    """ Function that handles the whole prcoess of authenticating,
+        and creating a session based on a user
 
     Returns:
-        str: _description_
+        str: response data
     """
     # Get the email and password from the request form
     email = request.form.get('email')
