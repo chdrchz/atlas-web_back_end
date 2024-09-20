@@ -3,6 +3,7 @@
 """
 
 import os
+from api.v1.auth import auth
 from models.user import User
 from api.v1.views import app_views
 from flask import abort, jsonify, make_response, request
@@ -61,8 +62,6 @@ def logout() -> str:
     Returns:
         str: jsonify({}), 200
     """
-    from api.v1.app import auth
-    removed = auth.destroy_session(request)
-    if not removed:
+    if not auth.destroy_session(request):
         abort(404)
     return jsonify({}), 200
