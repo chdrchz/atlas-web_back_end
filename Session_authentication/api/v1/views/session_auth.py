@@ -21,9 +21,10 @@ def login() -> str:
     
     # If the email is valid, find the user
     if email:
-        user = User.search({"email": email})
-        if user:
+        users = User.search({"email": email})
+        if users:
             
+            user = users[0]
             # If the User exists, try to authenticate the password
             if user.is_valid_password(password) is False:
                 return jsonify({"error": "wrong password"}), 401
