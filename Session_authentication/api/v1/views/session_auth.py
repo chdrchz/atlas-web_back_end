@@ -22,7 +22,7 @@ def login() -> str:
     # Check if the email is provided
     if not email:
         return jsonify({"error": "email missing"}), 400
-    
+
     # Check if the password is provided
     if not password:
         return jsonify({"error": "password missing"}), 400
@@ -47,6 +47,7 @@ def login() -> str:
 
     # Generate the response with the user info and set the session cookie
     response = make_response(user.to_json())
-    response.set_cookie(os.getenv('SESSION_NAME', '_my_session_id'), session_id)
+    response.set_cookie(os.getenv(
+            'SESSION_NAME', '_my_session_id'), session_id)
 
     return response
