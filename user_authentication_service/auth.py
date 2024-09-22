@@ -3,6 +3,10 @@
     user objects.
 
     Functions:
+        - def register_user(self, email: str, password: str
+            ) -> User:
+                - Method that checks if a user exists, and if not,
+                adds to database
 
     Other functions:
         - def _hash_password(password: str) -> bytes:
@@ -47,6 +51,18 @@ class Auth:
             # Save the User to the database with hashed password
             user = self._db.add_user(email, hashed_password)
             return user
+
+    def valid_login(self, email, password) -> bool:
+        # Try to find the user
+        user = self._db.find_user_by(email=email)
+        if user:
+            hashed_password = _hash_password(password)
+
+            # Are the passwords the same?
+            if bcrypt.checkpw(password, hashed_password):
+                return True
+            else:
+                return False
 
 
 def _hash_password(password: str) -> bytes:
