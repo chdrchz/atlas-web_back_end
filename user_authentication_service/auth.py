@@ -16,5 +16,8 @@ def _hash_password(password: str) -> bytes:
     # Get the salt
     salt = bcrypt.gensalt()
 
+    # Encode the password to bytes
+    password_bytes = password.encode('utf-8')
+
     # Season and hash the password
-    return bcrypt.hashpw(password, salt)
+    return bcrypt.hashpw(password_bytes, salt)
