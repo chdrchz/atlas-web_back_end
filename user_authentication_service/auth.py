@@ -53,6 +53,15 @@ class Auth:
             return user
 
     def valid_login(self, email, password) -> bool:
+        """ Method that verifies passwords match
+
+        Args:
+            email (_type_): Email for user
+            password (_type_): password for user
+
+        Returns:
+            bool: _description_
+        """
         # Try to find the user
         user = self._db.find_user_by(email=email)
         if user:
