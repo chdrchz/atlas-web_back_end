@@ -9,13 +9,7 @@ Base = declarative_base()
 
 # Define a model that maps to a table
 class User(Base):
-    """ Class that gets the 
-
-    Args:
-        Base (_type_): _description_
-
-    Returns:
-        _type_: _description_
+    """ Class that saves the user data to a SQL table
     """
 
     # The name of the table in the database
