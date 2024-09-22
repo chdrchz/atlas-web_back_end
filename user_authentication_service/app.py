@@ -17,7 +17,7 @@ def hello():
 
 
 @app.route('/users',  methods=['POST'])
-def users(email, password):
+def users():
     """ Finds the user based on email and password
 
     Args:
