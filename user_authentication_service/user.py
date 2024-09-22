@@ -7,6 +7,7 @@ from sqlalchemy.ext.declarative import declarative_base
 # Base class creation to map python classes to database tables
 Base = declarative_base()
 
+
 # Define a model that maps to a table
 class User(Base):
     """ Class that saves the user data to a SQL table
