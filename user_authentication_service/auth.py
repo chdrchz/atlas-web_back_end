@@ -3,7 +3,7 @@
     user objects.
 
     Functions:
-    
+
     Other functions:
         - def _hash_password(password: str) -> bytes:
                 - Method that salts and hashes a password
@@ -47,6 +47,7 @@ class Auth:
             # Save the User to the database with hashed password
             user = self._db.add_user(email, hashed_password)
             return user
+
 
 def _hash_password(password: str) -> bytes:
     """ Method that salts and hashes a password
