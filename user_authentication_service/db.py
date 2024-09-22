@@ -61,3 +61,23 @@ class DB:
             return query
         except InvalidRequestError:
             raise
+
+    def update_user(self, user_id: int, **kwargs) -> None:
+        """ Updates a user's information
+
+        Args:
+            user_id (int): User to update information for
+
+        Raises:
+            ValueError: If the key is not associated with a user
+        """
+        # Find the user by its ID
+        user = self.find_user_by(id=user_id)
+
+        # Find the key in kwargs associated with user
+        for key, value in kwargs.items():
+            if not hasattr(user, key):
+                raise ValueError
+            setattr(user, key, value)
+
+        self._session.commit()
