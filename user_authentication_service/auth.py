@@ -56,22 +56,27 @@ class Auth:
         """ Method that verifies passwords match
 
         Args:
-            email (_type_): Email for user
-            password (_type_): password for user
+            email (str): Email for user
+            password (str): Password for user
 
         Returns:
-            bool: _description_
+            bool: True if passwords match, otherwise False
         """
-        # Try to find the user
-        user = self._db.find_user_by(email=email)
-        if user:
-            hashed_password = _hash_password(password)
 
-            # Are the passwords the same?
-            if bcrypt.checkpw(password, hashed_password):
-                return True
-            else:
-                return False
+        # Try to find the user
+        try:
+            user = self._db.find_user_by(email=email)
+        except NoResultFound:
+            return False  # User not found
+
+        # Get the hashed password from the user object
+        hashed_password = user.hashed_password
+
+        # Encode the plaintext password to bytes
+        password_bytes = password.encode('utf-8')
+
+        # Are the passwords the same?
+        return bcrypt.checkpw(password_bytes, hashed_password)
 
 
 def _hash_password(password: str) -> bytes:
