@@ -12,6 +12,7 @@
 import bcrypt
 from db import DB
 from user import User
+from sqlalchemy.exc import NoResultFound
 
 
 class Auth:
@@ -32,15 +33,18 @@ class Auth:
         Returns:
             User: New User object
         """
-        # Find the User based on email
-        user = self._db.find_user_by(email=email)
-        if user:
-            raise ValueError(f"User {email} already exists")
-        else:
+        try:
+
+            # Try to find the User based on email
+            user = self._db.find_user_by(email=email)
+            raise ValueError(f"User {email} already exists")  # User found
+
+        except NoResultFound:
+
             # Hash the password
             hashed_password = _hash_password(password)
-            
-            # Save the User to the databse w/ hashed pass
+
+            # Save the User to the database with hashed password
             user = self._db.add_user(email, hashed_password)
             return user
 
