@@ -74,3 +74,48 @@ class TestGetJson(unittest.TestCase):
 
             # Was it called once per input?
             mock_get.assert_called_once_with(test_url)
+
+
+class TestMemoize(unittest.TestCase):
+    """_summary_
+    """
+
+    def test_memoize(self):
+
+        class TestClass:
+            """ Class to isolate memoize testing
+            """
+            def __init__(self):
+                """init"""
+                self.call_count = 0
+
+            def a_method(self):
+                # Make sure a_method is only called once
+                self.call_count += 1
+                return 42
+
+            # This means if the args are the same,
+            # cache instead of recalculate
+            @memoize
+            def a_property(self):
+                return self.a_method()
+
+        # Create instance of TestClass
+        test_instance = TestClass()
+
+        # Create a mock object
+        with patch.object(test_instance, 'a_method', return_value=42) as mock:
+
+            # Call the memoized property twice
+            result1 = test_instance.a_property()
+            result2 = test_instance.a_property()
+
+            # Assert that both calls return the expected value
+            self.assertEqual(result1, 42)
+            self.assertEqual(result2, 42)
+
+            # Assert that a_method was called only once
+            mock.assert_called_once()
+
+if __name__ == '__main__':
+    unittest.main()
