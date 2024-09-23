@@ -107,8 +107,8 @@ class TestMemoize(unittest.TestCase):
         with patch.object(test_instance, 'a_method', return_value=42) as mock:
 
             # Call the memoized property twice
-            result1 = test_instance.a_property()
-            result2 = test_instance.a_property()
+            result1 = test_instance.a_property
+            result2 = test_instance.a_property
 
             # Assert that both calls return the expected value
             self.assertEqual(result1, 42)
