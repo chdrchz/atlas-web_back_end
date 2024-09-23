@@ -10,7 +10,7 @@ from utils import access_nested_map, get_json, memoize
 class TestAccessNestedMap(unittest.TestCase):
     """ Class that tests utils.py
     """
-    
+
     @parameterized.expand([
         ({"a": 1}, ("a",), 1),
         ({"a": {"b": 2}}, ("a",), {"b": 2}),
@@ -26,7 +26,7 @@ class TestAccessNestedMap(unittest.TestCase):
             expected (_type_): The expected result
         """
         self.assertEqual(access_nested_map(nested_map, path), expected)
-    
+ 
     @parameterized.expand([
         ({}, ("a",), "Key 'a' not found in nested map"),
         ({"a": 1}, ("a", "b"), "Key 'b' not found in nested map"),
@@ -38,7 +38,7 @@ class TestAccessNestedMap(unittest.TestCase):
         Args:
             nested_map (_type_): Data to be iterated over
             path (_type_): Specific path to search in the nested map
-            expected_exception_message (_type_): "Key 'a' not found in nested map"
+            expected_exception_message: "Key 'a' not found in nested map"
         """
         with self.assertRaises(KeyError):
             access_nested_map(nested_map, path)
@@ -68,7 +68,7 @@ class TestGetJson(unittest.TestCase):
 
             # Specify the mock return value
             mock_get.return_value = mock
- 
+
             # Actually do the test now
             self.assertEqual(get_json(test_url), test_payload)
 
@@ -116,6 +116,7 @@ class TestMemoize(unittest.TestCase):
 
             # Assert that a_method was called only once
             mock.assert_called_once()
+
 
 if __name__ == '__main__':
     unittest.main()
