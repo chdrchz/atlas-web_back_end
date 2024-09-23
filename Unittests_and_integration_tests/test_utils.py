@@ -2,8 +2,8 @@
 """ Module that contains a class that tests utils.py
 """
 import unittest
-from parameterized import parameterized
 from unittest.mock import patch, Mock
+from parameterized import parameterized
 from utils import access_nested_map, get_json, memoize
 
 
@@ -42,3 +42,35 @@ class TestAccessNestedMap(unittest.TestCase):
         """
         with self.assertRaises(KeyError):
             access_nested_map(nested_map, path)
+
+
+class TestGetJson(unittest.TestCase):
+    """ Class that tests json response in utils.py
+    """
+
+    @parameterized.expand([
+        ('http://example.com', {'payload': True}),
+        ('http://holberton.io', {'payload': False}),
+    ])
+    def test_get_json(self, test_url, test_payload):
+        """ Tests if expected vs actual is the same
+
+        Args:
+            test_url (_type_): URL to mock
+            test_payload (_type_): JSON response
+        """
+        # Create a mock obj
+        mock = Mock()
+        mock.json.return_value = test_payload
+
+        # Use with to patch requests.get (HTTP call)
+        with patch('requests.get') as mock_get:
+
+            # Specify the mock return value
+            mock_get.return_value = mock
+ 
+            # Actually do the test now
+            self.assertEqual(get_json(test_url), test_payload)
+
+            # Was it called once per input?
+            mock_get.assert_called_once_with(test_url)
