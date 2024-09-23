@@ -26,7 +26,7 @@ class TestAccessNestedMap(unittest.TestCase):
             expected (_type_): The expected result
         """
         self.assertEqual(access_nested_map(nested_map, path), expected)
- 
+
     @parameterized.expand([
         ({}, ("a",), "Key 'a' not found in nested map"),
         ({"a": 1}, ("a", "b"), "Key 'b' not found in nested map"),
@@ -77,10 +77,12 @@ class TestGetJson(unittest.TestCase):
 
 
 class TestMemoize(unittest.TestCase):
-    """_summary_
+    """ Class to test the memoize function
     """
 
     def test_memoize(self):
+        """ Test memoize
+        """
 
         class TestClass:
             """ Class to isolate memoize testing
