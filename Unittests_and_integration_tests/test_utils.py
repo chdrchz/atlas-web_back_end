@@ -87,9 +87,6 @@ class TestMemoize(unittest.TestCase):
         class TestClass:
             """ Class to isolate memoize testing
             """
-            def __init__(self):
-                """init"""
-                self.call_count = 0
 
             def a_method(self):
                 # Make sure a_method is only called once
