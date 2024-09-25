@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+""" Test file for client.py
+"""
 
 import unittest
 from unittest.mock import PropertyMock, patch
@@ -7,12 +9,17 @@ from parameterized import parameterized
 
 
 class TestGithubOrgClient(unittest.TestCase):
+    """ Test client.py
+    """
+
     @parameterized.expand([
         ('google'),
         ('abc'),
     ])
     @patch('client.get_json')
     def test_org(self, org_name, mock_get):
+        """ Mock the payload of a request
+        """
         client = GithubOrgClient(org_name)
 
         # Call the method
@@ -23,6 +30,9 @@ class TestGithubOrgClient(unittest.TestCase):
 
     @patch('client.get_json')
     def test_public_repos(self, mock_get_json):
+        """ Mock the payload of a request and check
+            the name in the repo is the same in the payload
+        """
         mock_repos_payload = [{'name': 'repo1'}, {'name': 'repo2'}]
         mock_get_json.return_value = mock_repos_payload
         mock_public_repos_url = 'http://mocked.url/repos'
