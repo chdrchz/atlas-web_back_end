@@ -30,8 +30,7 @@ class TestGithubOrgClient(unittest.TestCase):
 
     @patch('client.get_json')
     def test_public_repos(self, mock_get_json):
-        """ Mock the payload of a request and check
-            the name in the repo is the same in the payload
+        """  Test result of _public_repos_url
         """
         mock_repos_payload = [{'name': 'repo1'}, {'name': 'repo2'}]
         mock_get_json.return_value = mock_repos_payload
@@ -47,7 +46,7 @@ class TestGithubOrgClient(unittest.TestCase):
             # Get org repos
             public_repos = github_org_client.public_repos()
 
-            # Check that the repo matches the payload
+            # checks that repos match payload
             self.assertEqual(public_repos,
                              [repo['name'] for repo in mock_repos_payload])
 
