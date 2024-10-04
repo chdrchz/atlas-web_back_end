@@ -9,13 +9,14 @@ from typing import Callable, Optional, Union
 
 
 def count_calls(method: Callable) -> Callable:
-    """_summary_
+    """ Counts the number of times a method from the cache
+        class is called.
 
     Args:
-        method (Callable): _description_
+        method (Callable): the wrapper method that counts instances
 
     Returns:
-        Callable: _description_
+        Callable: Calls itself over and over again
     """
     # Key is qualifiable
     key = method.__qualname__
@@ -23,7 +24,9 @@ def count_calls(method: Callable) -> Callable:
     # Count how many times the method is called
     @wraps(method)
     def wrapper(self, *args, **kwargs):
-        self._redis.incr(key)
+        
+        # Same as i++
+        self._redis.incr(method.__qualname__)
         return method(self, *args, **kwargs)
 
     return wrapper
