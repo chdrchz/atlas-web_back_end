@@ -162,5 +162,12 @@ class Cache:
         count = int(count) if count is not None else 0
 
         print(f"{method_name} was called {count} times:")
-        for input_str, output_str in zip(inputs, outputs):
-            print(f"{method_name}(*{input_str.decode('utf-8')}) -> {output_str.decode('utf-8')}")
+        print(f"Number of inputs: {len(inputs)}")
+        print(f"Number of outputs: {len(outputs)}")
+
+        # Safeguard against empty lists
+        if inputs and outputs:
+            for input_str, output_str in zip(inputs, outputs):
+                print(f"{method_name}(*{input_str.decode('utf-8')}) -> {output_str.decode('utf-8')}")
+        else:
+            print(f"No recorded calls for {method_name}.")
