@@ -136,7 +136,8 @@ class Cache:
             key (str): The key to retrieve from Redis.
 
         Returns:
-            Optional[int]: The retrieved integer data, or None if the key does not exist.
+            Optional[int]: The retrieved integer data, or None if the key
+            does not exist.
         """
 
         # Convert byte string to integer
@@ -168,6 +169,7 @@ class Cache:
         # Safeguard against empty lists
         if inputs and outputs:
             for input_str, output_str in zip(inputs, outputs):
-                print(f"{method_name}(*{input_str.decode('utf-8')}) -> {output_str.decode('utf-8')}")
+                print(f"{method_name}(*{input_str.decode('utf-8')}
+                        ) -> {output_str.decode('utf-8')}")
         else:
             print(f"No recorded calls for {method_name}.")
