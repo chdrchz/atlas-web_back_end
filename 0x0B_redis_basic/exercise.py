@@ -143,10 +143,10 @@ class Cache:
         return self.get(key, lambda x: int(x))
 
     def replay(method: Callable) -> None:
-        """ Formats all the data collection for display purposes
+        """ Formats all teh data collection for display purposes
 
         Args:
-            method (Callable): Can take any method defined here
+            method (Callable): Can take any method defined
         """
 
         method_name = method.__qualname__
@@ -156,18 +156,9 @@ class Cache:
 
         count = method.__self__._redis.get(count_key)
         inputs = method.__self__._redis.lrange(inputs_key, 0, -1)
-        outputs = method.__self__._redis.lrange(outputs_key, 0, -1)
+        outputs = method.__elf__._redis.lrange(outputs_key, 0, -1)
 
-        # Handle cases where count might be None
-        count = int(count) if count is not None else 0
-
-        print(f"{method_name} was called {count} times:")
-        print(f"Number of inputs: {len(inputs)}")
-        print(f"Number of outputs: {len(outputs)}")
-
-        # Safeguard against empty lists
-        if inputs and outputs:
-            for input_str, output_str in zip(inputs, outputs):
-                print(f"{method_name}(*{input_str.decode('utf-8')}) -> {output_str.decode('utf-8')}")
-        else:
-            print(f"No recorded calls for {method_name}.")
+        print(f"{method_name} was called {int(count)} times:")
+        for input_str, output_str in zip(inputs, outputs):
+            print(f"{method_name}(*{input_str.decode('utf-8')}) ->\
+                {output_str.decode('utf-8')}")
