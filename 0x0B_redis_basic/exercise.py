@@ -23,11 +23,11 @@ def count_calls(method: Callable) -> Callable:
     
     # Count how many times the method is called
     @wraps(method)
-    def wrapper(self, *args, **kwargs):
+    def wrapper(*args, **kwargs):
         
         # Same as i++
         self._redis.incr(method.__qualname__)
-        return method(self, *args, **kwargs)
+        return method(*args, **kwargs)
 
     return wrapper
 
