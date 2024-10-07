@@ -1,3 +1,4 @@
+-- Procedure to update a project score based on a user id
 DELIMITER //
 
 CREATE PROCEDURE AddBonus (
