@@ -1,4 +1,4 @@
--- Create a need_meeting view
+-- Create a need_meeting
 -- if no meeting has occured for a month
 CREATE VIEW need_meeting AS
 SELECT name 
