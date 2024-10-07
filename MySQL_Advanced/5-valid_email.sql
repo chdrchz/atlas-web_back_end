@@ -1,6 +1,4 @@
 -- Resets the valid_email variable if the email is updated
-DELIMITER //
-
 CREATE TRIGGER reset_email
 BEFORE UPDATE ON users
 FOR EACH ROW
@@ -9,5 +7,3 @@ BEGIN
     SET NEW.valid_email = 0;
     END IF;
 END;
-
-//
