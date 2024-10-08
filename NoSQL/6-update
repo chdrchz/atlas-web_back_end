@@ -1,0 +1,7 @@
+// Updates all instances of a matched string
+// and adds a new field if it doesn;'t exist
+db.school.update(
+    {name: "Holberton school"},
+    {$set: {address: "972 Mission street"}},
+    {multi: true}
+)
