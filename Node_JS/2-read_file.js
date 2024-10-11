@@ -13,7 +13,7 @@ export function countStudents(path) {
             console.log('No students found in the file');
             return;
         }
-
+ 
         console.log(`Number of students: ${students.length}`);
         const fields = {};
 
