@@ -28,7 +28,6 @@ By completing this project, you will learn how to:
 - Code must be tested with **Jest** using the command `npm run test`
 - Code must be linted using **ESLint**
 - Project must pass all tests and lint checks (`npm run full-test`)
-- All functions and classes should be exported using `module.exports = myFunction;`
 
 ## Provided Files
 
