@@ -42,7 +42,6 @@ export function countStudents(path) {
             }
 
             console.log('Done!');
-            resolve();
         });
     });
 }
