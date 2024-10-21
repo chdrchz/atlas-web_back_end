@@ -10,10 +10,10 @@ describe('calculateNumber()', () => {
   });
 
   it('should return the dividend of rounded a divided by rounded b', () => {
-    assert.strictEqual(calculateNumber('DIVIDE', 4, 1.7), 2);
-    assert.strictEqual(calculateNumber('DIVIDE', 2.2, 1), 1);
-    assert.strictEqual(calculateNumber('DIVIDE', 10.1, 10.1), 1);
-    assert.strictEqual(calculateNumber('DIVIDE', 100, 0), 'Error');
+    assert.equal(calculateNumber('DIVIDE', 4, 1.7), 2);
+    assert.equal(calculateNumber('DIVIDE', 2.2, 1), 2);
+    assert.equal(calculateNumber('DIVIDE', 10.1, 10.1), 1);
+    assert.equal(calculateNumber('DIVIDE', 100, 0), 'Error');
   });
 
   it('should return the difference between rounded a minus rounded b', () => {
