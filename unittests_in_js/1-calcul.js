@@ -22,7 +22,7 @@ function calculateNumber(type, a, b) {
     // If type is DIVIDE
     else if (type === allowedTypes[2]) {
         if (Math.round(b) !== 0) {
-            return Math.round(b) / Math.round(a);
+            return Math.round(a) / Math.round(b);
         } else {
             return ("Error");
         }
