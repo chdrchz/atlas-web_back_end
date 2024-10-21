@@ -8,7 +8,7 @@ describe('calculateNumber', function() {
     });
 
     it ('should return 5 when args are 1 and 3.7', function() {
-        assert.Equal(calculateNumber(1, 3.7), 5);
+        assert.strictEqual(calculateNumber(1, 3.7), 5);
     });
 
     it ('should return 5 when args are 1.2 and 3.7', function() {
