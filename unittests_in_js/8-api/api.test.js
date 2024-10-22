@@ -1,13 +1,18 @@
-const axios = require('axios');
-const { expect, assert } = require('chai');
+const request = require('request');
+const assert = require('assert');
 
-const url = 'http://localhost:7865/'
+describe('Index Page', () => {
+    it('should return status code 200', (done) => {
+        request('http://localhost:7865', (error, response, body) => {
+            assert.strictEqual(response.statusCode, 200);
+            done();
+        });
+    });
 
-describe('API index page integration test', () => {
-    it('should return a successful status code and the landing message', () => {
-        axios.get(url).then((res) => {
-            assert.equal(res.status, 200);
-            assert.equal(res.data, 'Welcome to the payment system');
+    it('should return the correct message', (done) => {
+        request('http://localhost:7865', (error, response, body) => {
+            assert.strictEqual(body, 'Welcome to the payment system');
+            done();
         });
     });
 });
