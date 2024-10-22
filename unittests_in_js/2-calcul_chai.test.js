@@ -1,5 +1,5 @@
 const { expect } = require('chai');
-const calculateNumber = require('./1-calcul.js');
+const calculateNumber = require('./2-calcul.js');
 
 describe('calculateNumber()', () => {
   it('should return the sum of rounded a and rounded b', () => {
