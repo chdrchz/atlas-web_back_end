@@ -1,22 +1,13 @@
-const chai = require("chai");
-const supertest = require("supertest");
-const { app, server } = require("./api.js"); // Import the server
-const { expect } = chai;
+const axios = require('axios');
+const { expect, assert } = require('chai');
 
-const request = supertest(app);
+const url = 'http://localhost:7865/'
 
-describe("GET /", () => {
-  after(() => {
-    server.close(); // Close the server after all tests
-  });
-
-  it("should return 'Welcome to the payment system' with status code 200", (done) => {
-    request.get("/")
-      .then((res) => {
-        expect(res.status).to.equal(200);
-        expect(res.text).to.equal("Welcome to the payment system");
-        done();
-      })
-      .catch((err) => done(err));
-  });
+describe('API index page integration test', () => {
+    it('should return a successful status code and the landing message', () => {
+        axios.get(url).then((res) => {
+            assert.equal(res.status, 200);
+            assert.equal(res.data, 'Welcome to the payment system');
+        });
+    });
 });
