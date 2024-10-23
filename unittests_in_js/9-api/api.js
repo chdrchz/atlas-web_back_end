@@ -6,10 +6,13 @@ app.get('/', (req, res) => {
     res.send('Welcome to the payment system');
 });
 
-// Regex to make sure that id is always a digit
-app.get('/cart/:id(\\d+)', (req, res) => {
+app.get('/cart/:id', (req, res) => {
     const id = req.params.id;
-    res.send(`Payment methods for cart ${id}`);
+    if (!isNaN(id)) {
+        res.send(`Payment methods for cart ${id}`);
+    } else {
+        res.status(404).send('Cart not found');
+    }
 });
 
 app.listen(port, () => {
