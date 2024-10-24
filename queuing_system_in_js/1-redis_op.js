@@ -1,7 +1,8 @@
 import { createClient } from "redis";
 
 const client = createClient({
-  url: "redis://localhost:6379", // Use `url` instead of separate host and port
+  host: 'localhost',
+  port: 6379,
 });
 
 client.on("error", (err) => {
