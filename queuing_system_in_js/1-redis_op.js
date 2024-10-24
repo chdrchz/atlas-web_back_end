@@ -32,10 +32,10 @@ client.connect().then(() => {
 
 function setNewSchool(schoolName, value) {
   return client.set(schoolName, value);
-}
+};
 
 function displaySchoolValue(schoolName) {
   return client.get(schoolName).then((value) => {
     console.log(value);
   });
-}
+};
