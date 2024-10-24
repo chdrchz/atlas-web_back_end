@@ -1,5 +1,7 @@
 import { createClient } from "redis";
 
+// Just so we know, it is returning 0 because the fields already exist
+
 const client = createClient({
   host: "localhost",
   port: 6379,
